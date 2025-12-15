@@ -9,7 +9,7 @@ tasks:
 
   dev:frontend: cd frontend && task
   dev:backend: cd backend && task
-  build: powershell ./scripts/build.ps1
+  build: bash ./build.sh
   preview: cd build/ && dotnet ./Api.dll
 
   restore:

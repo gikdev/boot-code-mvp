@@ -9,7 +9,7 @@ cd frontend
 
 echo "Building frontend..."
 
-task publish
+task build
 
 echo "Copying frontend build to backend/wwwroot..."
 
@@ -28,6 +28,6 @@ cd ../backend
 
 echo "Building backend..."
 
-task publish
+task build
 
 echo "✅ Build completed."

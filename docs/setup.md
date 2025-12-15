@@ -2,8 +2,7 @@
 
 1. Things you'd need:
 
-    - Powershell
-    - NPM or PNPM
+    - PNPM
     - NodeJS
     - .NET CLI
     - Task ([taskfile.dev](https://taskfile.dev/))
