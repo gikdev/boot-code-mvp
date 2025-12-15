@@ -2,7 +2,7 @@
 version: '3'
 
 tasks:
-  default: dotnet watch run
-  run: dotnet run
+  default: dotnet watch run --project ./src/Backend.Api/
+  run: dotnet run --project ./src/Backend.Api/
   build: dotnet build --no-restore
-  restore: dotnet restore Backend.slnx
+  restore: dotnet restore ./Backend.slnx

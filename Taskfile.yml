@@ -7,8 +7,8 @@ tasks:
     aliases: [default]
     deps: [dev-frontend, dev-backend]
 
-  dev:frontend: cd frontend && task
-  dev:backend: cd backend && task
+  dev-frontend: cd frontend && task
+  dev-backend: cd backend && task
   build: bash ./build.sh
   preview: cd build/ && dotnet ./Api.dll
 
