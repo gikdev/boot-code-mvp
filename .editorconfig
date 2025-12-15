@@ -11,10 +11,10 @@ max_line_length = 120
 [*.{js,jsx,ts,tsx}]
 quote_type = double
 
-[*.{js,jsx,ts,tsx,xml,csproj,slnx,props,md,html,css,json}]
-indent_size = 2
+# [*.{}]
+# indent_size = 2
 
-[*.{cs,md}]
+[*.{cs,md,js,jsx,ts,tsx,xml,csproj,slnx,props,html,css,json}]
 indent_size = 4
 
 [*.cs]
