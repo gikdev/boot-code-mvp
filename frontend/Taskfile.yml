@@ -1,6 +1,8 @@
 # https://taskfile.dev
+
 version: '3'
 
 tasks:
-  default: ...
+  default: pnpm start
   restore: pnpm i
+  check: pnpm run biome check --write .
