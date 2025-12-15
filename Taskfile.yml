@@ -1,0 +1,18 @@
+# https://taskfile.dev
+version: '3'
+
+tasks:
+  dev:
+    desc: Start development of `backend` & `frontend`.
+    aliases: [default]
+    deps: [dev-frontend, dev-backend]
+
+  dev:frontend: cd frontend && task
+  dev:backend: cd backend && task
+  build: powershell ./scripts/build.ps1
+  preview: cd build/ && dotnet ./Api.dll
+
+  restore:
+    cmds:
+      - cd frontend && task restore
+      - cd backend && task restore

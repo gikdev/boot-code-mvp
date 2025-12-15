@@ -1,0 +1,23 @@
+# Custom
+backend/wwwroot/*
+!backend/wwwroot/.gitkeep
+
+# ENV files
+.env
+.env.*
+!.env.(sample|example)
+
+# IDEs
+.idea/
+*.iml
+.vs/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Misc
+*.log
+~$*
+*~
