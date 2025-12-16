@@ -1,6 +1,11 @@
+using FastEndpoints;
+
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddFastEndpoints();
 builder.Services.AddCors();
+
+
 
 var app = builder.Build();
 
@@ -10,6 +15,6 @@ app.UseCors(o => {
     o.AllowAnyOrigin();
 });
 
-app.MapGet("/", () => new { message = "Hello World!" });
+app.MapFastEndpoints();
 
 app.Run();
