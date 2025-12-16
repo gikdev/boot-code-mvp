@@ -9,5 +9,9 @@ public class LessonConfigs : IEntityTypeConfiguration<Lesson> {
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Id)
             .ValueGeneratedNever();
+
+        builder.Property(x => x.Title);
+        builder.Property(x => x.Position);
+        builder.Property(x => x.Content);
     }
 }

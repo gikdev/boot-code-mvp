@@ -9,11 +9,17 @@ public static class Mappings {
         return new CreateLessonCommand(req.Title, req.Position, req.Content);
     }
 
-    public static LessonSmallResponse MapToResponse(this Lesson lesson) {
+    public static LessonSmallResponse MapToSmallResponse(this Lesson lesson) {
         return new LessonSmallResponse {
             Id = lesson.Id,
             Position = lesson.Position,
             Title = lesson.Title
+        };
+    }
+
+    public static LessonListResponse MapToListResponse(this List<Lesson> lessonList) {
+        return new LessonListResponse {
+            Items = lessonList.Select(l => l.MapToSmallResponse()),
         };
     }
 }

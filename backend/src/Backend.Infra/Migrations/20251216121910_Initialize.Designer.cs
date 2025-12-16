@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Backend.Infra.Migrations
 {
     [DbContext(typeof(MainDbCtx))]
-    [Migration("20251216111341_Initialize")]
+    [Migration("20251216121910_Initialize")]
     partial class Initialize
     {
         /// <inheritdoc />
@@ -23,6 +23,16 @@ namespace Backend.Infra.Migrations
             modelBuilder.Entity("Backend.Domain.Lessons.Lesson", b =>
                 {
                     b.Property<Guid>("Id")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Content")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Position")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");

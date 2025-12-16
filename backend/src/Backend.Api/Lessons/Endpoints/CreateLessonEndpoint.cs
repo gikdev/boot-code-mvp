@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Backend.Api.Lessons.Endpoints;
 
-public class Create : Ep.Req<CreateLessonRequest>.Res<LessonSmallResponse> {
+public class CreateLessonEndpoint : Ep.Req<CreateLessonRequest>.Res<LessonSmallResponse> {
     public const string Name = "CreateLesson";
 
     public required ISender Mediator { get; init; }
@@ -24,7 +24,7 @@ public class Create : Ep.Req<CreateLessonRequest>.Res<LessonSmallResponse> {
         var result = await Mediator.Send(req.MapToCommand(), ct);
 
         await result.Match(
-            lesson => Send.OkAsync(lesson.MapToResponse()),
+            lesson => Send.OkAsync(lesson.MapToSmallResponse()),
             errors => Send.SendErrorListAsync(errors)
         );
     }
