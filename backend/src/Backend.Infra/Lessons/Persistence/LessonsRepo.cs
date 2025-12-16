@@ -10,7 +10,7 @@ public class LessonsRepo(MainDbCtx db) : ILessonsRepo {
         await db.AddAsync(lesson);
     }
 
-    public async Task<Lesson?> GetOneById(Guid id) {
+    public async Task<Lesson?> GetOneByIdAsync(Guid id) {
         return await db.Lessons.FirstOrDefaultAsync(l => l.Id == id);
     }
 
@@ -25,5 +25,10 @@ public class LessonsRepo(MainDbCtx db) : ILessonsRepo {
 
     public async Task SaveChangesAsync() {
         await db.SaveChangesAsync();
+    }
+
+    public Task UpdateAsync(Lesson lesson) {
+        db.Lessons.Update(lesson);
+        return Task.CompletedTask;
     }
 }

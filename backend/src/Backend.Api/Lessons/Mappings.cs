@@ -40,4 +40,8 @@ public static class Mappings {
     public static DeleteLessonByIdCommand MapToCommand(this DeleteLessonByIdRequest request) {
         return new DeleteLessonByIdCommand(request.Id);
     }
+
+    public static UpdateLessonItselfByIdCommand MapToCommand(this UpdateLessonItselfByIdRequest request) {
+        return new UpdateLessonItselfByIdCommand(request.Id, request.Title, request.Position);
+    }
 }

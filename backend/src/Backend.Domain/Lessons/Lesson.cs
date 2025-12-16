@@ -21,9 +21,21 @@ public class Lesson {
     }
 
     public Guid Id { get; }
-    public string Title { get; }
-    public int Position { get; }
-    public string? Content { get; }
+    public string Title { get; private set; }
+    public int Position { get; private set; }
+    public string? Content { get; private set; }
+
+    public void RenameTitle(string newTitle) {
+        Title = newTitle;
+    }
+
+    public void ChangePosition(int newPosition) {
+        Position = newPosition;
+    }
+
+    public void ChangeContent(string? newContent) {
+        Content = newContent;
+    }
 
     public static ErrorOr<Lesson> Create(
         string title,

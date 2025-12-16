@@ -23,7 +23,7 @@ public class GetLessonByIdHandler(
         GetLessonByIdQuery request,
         CancellationToken cancellationToken
     ) {
-        var lesson = await lessonsRepo.GetOneById(request.Id);
+        var lesson = await lessonsRepo.GetOneByIdAsync(request.Id);
         return lesson;
     }
 }
