@@ -1,6 +1,7 @@
 using Backend.App.Common.Interfaces;
 using Backend.Domain.Lessons;
 using ErrorOr;
+using FluentValidation;
 using MediatR;
 
 namespace Backend.App.Lessons.Commands;
@@ -10,6 +11,14 @@ public record CreateLessonCommand(
     int? Position = null,
     string? Content = null
 ) : IRequest<ErrorOr<Lesson>>;
+
+public class CreateLessonValidator : AbstractValidator<CreateLessonCommand> {
+    public CreateLessonValidator() {
+        RuleFor(x => x.Title)
+            .NotEmpty().WithMessage("عنوان نباید خالی باشد.")
+            .MinimumLength(1).WithMessage("عنوان نباید خالی باشد.");
+    }
+}
 
 public class CreateLessonHandler(
     ILessonsRepo lessonsRepo

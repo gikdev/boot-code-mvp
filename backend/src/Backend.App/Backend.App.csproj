@@ -1,8 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+
     <ItemGroup>
-        <PackageReference Include="MediatR"/>
+        <PackageReference Include="ErrorOr" />
+        <PackageReference Include="FluentValidation" />
+        <PackageReference Include="FluentValidation.AspNetCore" />
+        <PackageReference Include="MediatR" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
     </ItemGroup>
+
     <ItemGroup>
-        <ProjectReference Include="..\Backend.Domain\Backend.Domain.csproj"/>
+        <ProjectReference Include="..\Backend.Domain\Backend.Domain.csproj" />
     </ItemGroup>
+
 </Project>

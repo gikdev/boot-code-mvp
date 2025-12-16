@@ -1,3 +1,6 @@
+# SQLite
+*.db
+
 # .NET build output
 bin/
 obj/

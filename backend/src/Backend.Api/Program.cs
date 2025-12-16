@@ -1,25 +1,15 @@
-using FastEndpoints;
-
-// ---
+using Backend.Api;
+using Backend.App;
+using Backend.Infra;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddOpenApi();
-builder.Services.AddFastEndpoints();
-builder.Services.AddCors();
+builder.Services
+    .AddApiStuff()
+    .AddAppStuff()
+    .AddInfraStuff();
 
-// ---
-
-var app = builder.Build();
-
-app.UseCors(o => o
-    .AllowAnyHeader()
-    .AllowAnyMethod()
-    .AllowAnyOrigin()
-);
-
-app.MapFastEndpoints();
-
-// ---
-
-app.Run();
+builder
+    .Build()
+    .UseApiStuff()
+    .Run();
