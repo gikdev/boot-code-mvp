@@ -21,11 +21,19 @@ public class CreateLessonEndpoint : Ep.Req<CreateLessonRequest>.Res<LessonSmallR
     }
 
     public override async Task HandleAsync(CreateLessonRequest req, CancellationToken ct) {
+        Logger.LogDebug("POST {EndpointName} received.", Name);
+
         var result = await Mediator.Send(req.MapToCommand(), ct);
 
-        await result.Match(
-            lesson => Send.OkAsync(lesson.MapToSmallResponse()),
-            errors => Send.SendErrorListAsync(errors)
-        );
+        if (result.IsError) {
+            var errors = result.Errors;
+            Logger.LogInformation("POST {EndpointName} failed with {ErrorCount} errors.", Name, errors.Count);
+            await Send.SendErrorListAsync(errors);
+            return;
+        }
+
+        var lesson = result.Value;
+        Logger.LogInformation("POST {EndpointName} succeeded with LessonId {LessonId}", Name, lesson.Id);
+        await Send.OkAsync(lesson.MapToSmallResponse(), ct);
     }
 }

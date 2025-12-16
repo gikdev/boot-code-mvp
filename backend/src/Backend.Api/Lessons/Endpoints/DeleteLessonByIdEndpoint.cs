@@ -21,11 +21,18 @@ public class DeleteLessonByIdEndpoint : Ep.Req<DeleteLessonByIdRequest>.NoRes {
     }
 
     public override async Task HandleAsync(DeleteLessonByIdRequest req, CancellationToken ct) {
+        Logger.LogDebug("DELETE {EndpointName} #{LessonId} received.", Name, req.Id);
+
         var result = await Mediator.Send(req.MapToCommand(), ct);
 
-        await result.Match(
-            _ => Send.NoContentAsync(),
-            errors => Send.SendErrorListAsync(errors)
-        );
+        if (result.IsError) {
+            var errors = result.Errors;
+            Logger.LogInformation("DELETE {EndpointName} #{LessonId} failed with {ErrorCount} errors.", Name, req.Id, errors.Count);
+            await Send.SendErrorListAsync(errors);
+            return;
+        }
+
+        Logger.LogInformation("DELETE {EndpointName} #{LessonId} succeeded.", Name, req.Id);
+        await Send.NoContentAsync(ct);
     }
 }

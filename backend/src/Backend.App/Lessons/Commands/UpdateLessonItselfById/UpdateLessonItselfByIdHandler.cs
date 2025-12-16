@@ -1,22 +1,8 @@
 using Backend.App.Common.Interfaces;
 using ErrorOr;
-using FluentValidation;
 using MediatR;
 
-namespace Backend.App.Lessons.Commands;
-
-public record UpdateLessonItselfByIdCommand(
-    Guid Id,
-    string Title,
-    int Position
-) : IRequest<ErrorOr<Success>>;
-
-public class UpdateLessonItselfByIdValidator : AbstractValidator<UpdateLessonItselfByIdCommand> {
-    public UpdateLessonItselfByIdValidator() {
-        RuleFor(x => x.Title)
-            .NotEmpty().WithMessage("عنوان نباید خالی باشد.");
-    }
-}
+namespace Backend.App.Lessons.Commands.UpdateLessonItselfById;
 
 public class UpdateLessonItselfByIdHandler(
     ILessonsRepo lessonsRepo

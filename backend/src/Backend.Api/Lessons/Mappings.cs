@@ -1,5 +1,7 @@
-using Backend.App.Lessons.Commands;
-using Backend.App.Lessons.Queries;
+using Backend.App.Lessons.Commands.CreateLesson;
+using Backend.App.Lessons.Commands.DeleteLessonById;
+using Backend.App.Lessons.Commands.UpdateLessonItselfById;
+using Backend.App.Lessons.Queries.GetLessonById;
 using Backend.Contracts.Lessons;
 using Backend.Domain.Lessons;
 

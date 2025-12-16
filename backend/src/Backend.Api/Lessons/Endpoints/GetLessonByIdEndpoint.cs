@@ -22,14 +22,18 @@ public class GetLessonByIdEndpoint : Ep.Req<GetLessonByIdRequest>.Res<LessonFull
     }
 
     public override async Task HandleAsync(GetLessonByIdRequest req, CancellationToken ct) {
+        Logger.LogDebug("GET {EndpointName} #{LessonId} received.", Name, req.Id);
+
         var lesson = await Mediator.Send(req.MapToQuery(), ct);
 
         if (lesson is null) {
             List<Error> errors = [Error.NotFound("درس پیدا نشد.")];
+            Logger.LogInformation("GET {EndpointName} #{LessonId} failed with {ErrorCount} errors.", Name, req.Id, errors.Count);
             await Send.SendErrorListAsync(errors);
             return;
         }
 
+        Logger.LogInformation("GET {EndpointName} #{LessonId} succeeded", Name, lesson.Id);
         await Send.OkAsync(lesson.MapToFullResponse(), ct);
     }
 }

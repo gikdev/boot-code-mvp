@@ -21,11 +21,18 @@ public class UpdateLessonItselfByIdEndpoint : Ep.Req<UpdateLessonItselfByIdReque
     }
 
     public override async Task HandleAsync(UpdateLessonItselfByIdRequest req, CancellationToken ct) {
+        Logger.LogDebug("PUT {EndpointName} #{LessonId} received with.", Name, req.Id);
+
         var result = await Mediator.Send(req.MapToCommand(), ct);
 
-        await result.Match(
-            _ => Send.NoContentAsync(),
-            errors => Send.SendErrorListAsync(errors)
-        );
+        if (result.IsError) {
+            var errors = result.Errors;
+            Logger.LogInformation("PUT {EndpointName} #{LessonId} failed with {ErrorCount} errors.", Name, req.Id, errors.Count);
+            await Send.SendErrorListAsync(errors);
+            return;
+        }
+
+        Logger.LogInformation("PUT {EndpointName} #{LessonId} succeeded.", Name, req.Id);
+        await Send.NoContentAsync(ct);
     }
 }
