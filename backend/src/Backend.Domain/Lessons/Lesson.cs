@@ -3,13 +3,9 @@ using ErrorOr;
 namespace Backend.Domain.Lessons;
 
 public class Lesson {
-    public Guid Id { get; }
-    public string Title { get; }
-    public int Position { get; }
-    public string? Content { get; }
-
 #pragma warning disable CS8618
-    private Lesson() { }
+    private Lesson() {
+    }
 #pragma warning restore CS8618
 
     private Lesson(
@@ -23,6 +19,11 @@ public class Lesson {
         Content = content;
         Id = id ?? Guid.NewGuid();
     }
+
+    public Guid Id { get; }
+    public string Title { get; }
+    public int Position { get; }
+    public string? Content { get; }
 
     public static ErrorOr<Lesson> Create(
         string title,
