@@ -51,7 +51,9 @@
                                 "input": "public"
                             }
                         ],
-                        "styles": ["src/styles.css"]
+                        "styles": [
+                            "src/styles.css"
+                        ]
                     },
                     "configurations": {
                         "production": {
@@ -79,6 +81,9 @@
                 },
                 "serve": {
                     "builder": "@angular/build:dev-server",
+                    "options": {
+                        "port": 4263
+                    },
                     "configurations": {
                         "production": {
                             "buildTarget": "frontend:build:production"
