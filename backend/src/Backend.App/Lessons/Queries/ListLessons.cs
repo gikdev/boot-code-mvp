@@ -1,6 +1,5 @@
 using Backend.App.Common.Interfaces;
 using Backend.Domain.Lessons;
-using ErrorOr;
 using MediatR;
 
 namespace Backend.App.Lessons.Queries;

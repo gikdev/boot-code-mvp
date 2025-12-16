@@ -1,4 +1,5 @@
 using Backend.App.Lessons.Commands;
+using Backend.App.Lessons.Queries;
 using Backend.Contracts.Lessons;
 using Backend.Domain.Lessons;
 
@@ -21,5 +22,18 @@ public static class Mappings {
         return new LessonListResponse {
             Items = lessonList.Select(l => l.MapToSmallResponse()),
         };
+    }
+
+    public static LessonFullResponse MapToFullResponse(this Lesson lesson) {
+        return new LessonFullResponse {
+            Id = lesson.Id,
+            Title = lesson.Title,
+            Content = lesson.Content,
+            Position = lesson.Position
+        };
+    }
+
+    public static GetLessonByIdQuery MapToQuery(this GetLessonByIdRequest request) {
+        return new GetLessonByIdQuery(request.Id);
     }
 }

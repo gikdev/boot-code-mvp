@@ -10,6 +10,10 @@ public class LessonsRepo(MainDbCtx db) : ILessonsRepo {
         await db.AddAsync(lesson);
     }
 
+    public async Task<Lesson?> GetOneById(Guid id) {
+        return await db.Lessons.FirstOrDefaultAsync(l => l.Id == id);
+    }
+
     public async Task<List<Lesson>> ListAsync() {
         return await db.Lessons.ToListAsync();
     }
