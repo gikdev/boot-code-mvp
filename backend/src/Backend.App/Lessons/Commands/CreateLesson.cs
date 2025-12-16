@@ -15,8 +15,7 @@ public record CreateLessonCommand(
 public class CreateLessonValidator : AbstractValidator<CreateLessonCommand> {
     public CreateLessonValidator() {
         RuleFor(x => x.Title)
-            .NotEmpty().WithMessage("عنوان نباید خالی باشد.")
-            .MinimumLength(1).WithMessage("عنوان نباید خالی باشد.");
+            .NotEmpty().WithMessage("عنوان نباید خالی باشد.");
     }
 }
 

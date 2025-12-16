@@ -21,8 +21,8 @@ public class ValidationBehavior<TReq, TRes>(
 
         var errors = result.Errors
             .Select(e => Error.Validation(
-                code: e.PropertyName,
-                description: e.ErrorMessage
+                e.PropertyName,
+                e.ErrorMessage
             ))
             .ToList();
 

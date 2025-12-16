@@ -3,9 +3,9 @@ using Backend.Contracts.Lessons;
 using FastEndpoints;
 using MediatR;
 
-namespace Backend.Api.Lessons;
+namespace Backend.Api.Lessons.Endpoints;
 
-public class CreateLessonEndpoint : Ep.Req<CreateLessonRequest>.Res<LessonSmallResponse> {
+public class Create : Ep.Req<CreateLessonRequest>.Res<LessonSmallResponse> {
     public const string Name = "CreateLesson";
 
     public required ISender Mediator { get; init; }
@@ -25,7 +25,7 @@ public class CreateLessonEndpoint : Ep.Req<CreateLessonRequest>.Res<LessonSmallR
 
         await result.Match(
             lesson => Send.OkAsync(lesson.MapToResponse()),
-            errors => Send.ResultAsync(ApiResults.Problem(errors))
+            errors => Send.SendErrorListAsync(errors)
         );
     }
 }
