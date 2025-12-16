@@ -3,6 +3,9 @@
 # CUSTOM:
 .angular/
 
+# HeyAPI
+generated/
+
 # Compiled output
 /dist
 /tmp

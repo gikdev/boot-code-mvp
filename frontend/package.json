@@ -4,6 +4,7 @@
     "private": true,
     "packageManager": "pnpm@10.25.0",
     "scripts": {
+        "openapi-ts": "openapi-ts",
         "biome": "biome",
         "ng": "ng",
         "start": "ng serve",
@@ -19,6 +20,7 @@
         "@angular/platform-browser": "^21.0.0",
         "@angular/router": "^21.0.0",
         "@spartan-ng/brain": "0.0.1-alpha.581",
+        "@tanstack/angular-query-experimental": "^5.90.16",
         "class-variance-authority": "^0.7.0",
         "clsx": "^2.1.1",
         "rxjs": "~7.8.0",
@@ -30,6 +32,7 @@
         "@angular/cli": "^21.0.3",
         "@angular/compiler-cli": "^21.0.0",
         "@biomejs/biome": "2.3.9",
+        "@hey-api/openapi-ts": "0.89.0",
         "@spartan-ng/cli": "0.0.1-alpha.581",
         "@tailwindcss/postcss": "^4.1.12",
         "postcss": "^8.5.3",

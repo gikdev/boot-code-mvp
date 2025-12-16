@@ -1,6 +1,7 @@
-import { HttpClient } from "@angular/common/http"
-import { Component, DestroyRef, inject, signal } from "@angular/core"
+import { Component, inject } from "@angular/core"
+import { createLessonMutation, listLessonsOptions } from "@generated-api-client"
 import { HlmButtonImports } from "@spartan-ng/helm/button"
+import { injectMutation, injectQuery, QueryClient } from "@tanstack/angular-query-experimental"
 import { TestNav } from "../../test-nav"
 
 @Component({
@@ -9,24 +10,22 @@ import { TestNav } from "../../test-nav"
     template: `
         <p>intro works!</p>
         <app-test-nav />
-        <button hlmBtn (click)="callServer()">Hello world!</button>
-        @let api = apiState();
+        <button hlmBtn (click)="createLesson()">Hello world!</button>
 
-        @switch (api.status) {
-            @case ('idle') {
-                <p>Idle.</p>
-            }
-
-            @case ('loading') {
+        @switch (listLessonsQuery.status()) {
+            @case ('pending') {
                 <p>Loading...</p>
             }
 
             @case ('error') {
-                <p>Something went wrong: {{ api.message }}</p>
+                <p>Something went wrong: {{ listLessonsQuery.error()?.message }}</p>
             }
 
             @case ('success') {
-                <p>The server says: {{ api.data.message }}</p>
+                <p>Lessons:</p>
+                @for (lesson of listLessonsQuery.data()!.items; track lesson.id) {
+                    <p>{{lesson.position}} - {{lesson.title}}</p>
+                }
             }
 
             @default {
@@ -34,31 +33,23 @@ import { TestNav } from "../../test-nav"
             }
         }
     `,
-    styles: ``,
 })
 export class Intro {
-    protected apiState = signal<ApiState>({ status: "idle" })
-    private readonly _httpClient = inject(HttpClient)
-    private readonly _destroyRef = inject(DestroyRef)
+    queryClient = inject(QueryClient)
+    listLessonsQuery = injectQuery(listLessonsOptions)
+    createLessonMutation = injectMutation(() => ({
+        ...createLessonMutation(),
+        onSuccess: () => {
+            this.queryClient.invalidateQueries(listLessonsOptions())
+        },
+    }))
 
-    protected callServer() {
-        this.apiState.set({ status: "loading" })
-
-        const subscription = this._httpClient.get<MessageResponse>("http://localhost:5125/").subscribe({
-            next: (val: MessageResponse) => this.apiState.set({ status: "success", data: val }),
-            error: err => this.apiState.set({ status: "error", message: err.message }),
+    createLesson() {
+        this.createLessonMutation.mutate({
+            body: {
+                title: "یه درس بی‌ربط",
+                position: 2,
+            },
         })
-
-        this._destroyRef.onDestroy(() => subscription.unsubscribe())
     }
-}
-
-type ApiState =
-    | { status: "idle" }
-    | { status: "error"; message: string }
-    | { status: "loading" }
-    | { status: "success"; data: MessageResponse }
-
-interface MessageResponse {
-    message: string
 }
