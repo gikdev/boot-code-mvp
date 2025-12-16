@@ -13,11 +13,8 @@ public class UpdateLessonItselfByIdEndpoint : Ep.Req<UpdateLessonItselfByIdReque
     public override void Configure() {
         AllowAnonymous();
         Put(ApiEndpoints.Lessons.UpdateItselfById);
-        Options(b => b
-            .WithName(Name)
-            .WithSummary("Update lesson itself by ID")
-            .WithTags(ApiTags.Lessons)
-        );
+        Description(b => b.WithName(Name).WithTags(ApiTags.Lessons));
+        Summary(s => s.Summary = "Update lesson itself by ID");
     }
 
     public override async Task HandleAsync(UpdateLessonItselfByIdRequest req, CancellationToken ct) {

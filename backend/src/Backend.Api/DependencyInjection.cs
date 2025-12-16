@@ -1,5 +1,6 @@
 using System.Text.Json.Serialization;
 using FastEndpoints;
+using FastEndpoints.Swagger;
 using Scalar.AspNetCore;
 
 namespace Backend.Api;
@@ -14,8 +15,9 @@ public static class DependencyInjection {
 
         services.AddProblemDetails();
         services.AddCors();
-        services.AddOpenApi();
-        services.AddFastEndpoints();
+        services
+            .AddFastEndpoints()
+            .SwaggerDocument();
 
         return services;
     }
@@ -29,12 +31,12 @@ public static class DependencyInjection {
             .AllowAnyOrigin()
         );
 
-        app.MapOpenApi();
-        app.MapScalarApiReference();
-
-        app.MapFastEndpoints(c => {
+        app.UseFastEndpoints(c => {
             c.Serializer.Options.NumberHandling = jsonNumberHandling;
-        });
+        }).UseSwaggerGen();
+
+        // app.UseOpenApi(c => c.Path = "/openapi/{documentName}.json");
+        // app.MapScalarApiReference();
 
         return app;
     }

@@ -14,11 +14,8 @@ public class GetLessonByIdEndpoint : Ep.Req<GetLessonByIdRequest>.Res<LessonFull
     public override void Configure() {
         AllowAnonymous();
         Get(ApiEndpoints.Lessons.GetById);
-        Options(b => b
-            .WithName(Name)
-            .WithSummary("Get lesson by ID")
-            .WithTags(ApiTags.Lessons)
-        );
+        Description(b => b.WithName(Name).WithTags(ApiTags.Lessons));
+        Summary(s => s.Summary = "Get lesson by ID");
     }
 
     public override async Task HandleAsync(GetLessonByIdRequest req, CancellationToken ct) {

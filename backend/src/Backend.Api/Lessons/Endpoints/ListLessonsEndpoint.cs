@@ -14,11 +14,8 @@ public class ListLessonsEndpoint : Ep.NoReq.Res<LessonListResponse> {
     public override void Configure() {
         AllowAnonymous();
         Get(ApiEndpoints.Lessons.List);
-        Options(b => b
-            .WithName(Name)
-            .WithSummary("List lessons")
-            .WithTags(ApiTags.Lessons)
-        );
+        Description(b => b.WithName(Name).WithTags(ApiTags.Lessons));
+        Summary(s => s.Summary = "List lessons");
     }
 
     public override async Task HandleAsync(CancellationToken ct) {

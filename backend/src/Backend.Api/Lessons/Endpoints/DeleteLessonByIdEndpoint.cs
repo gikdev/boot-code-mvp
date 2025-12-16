@@ -13,11 +13,8 @@ public class DeleteLessonByIdEndpoint : Ep.Req<DeleteLessonByIdRequest>.NoRes {
     public override void Configure() {
         AllowAnonymous();
         Delete(ApiEndpoints.Lessons.DeleteById);
-        Options(b => b
-            .WithName(Name)
-            .WithSummary("Delete a lesson by ID")
-            .WithTags(ApiTags.Lessons)
-        );
+        Description(b => b.WithName(Name).WithTags(ApiTags.Lessons));
+        Summary(s => s.Summary = "Delete a lesson by ID");
     }
 
     public override async Task HandleAsync(DeleteLessonByIdRequest req, CancellationToken ct) {

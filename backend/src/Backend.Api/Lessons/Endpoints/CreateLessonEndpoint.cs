@@ -13,11 +13,8 @@ public class CreateLessonEndpoint : Ep.Req<CreateLessonRequest>.Res<LessonSmallR
     public override void Configure() {
         AllowAnonymous();
         Post(ApiEndpoints.Lessons.Create);
-        Options(b => b
-            .WithName(Name)
-            .WithSummary("Create a new lesson")
-            .WithTags(ApiTags.Lessons)
-        );
+        Description(b => b.WithName(Name).WithTags(ApiTags.Lessons));
+        Summary(s => s.Summary = "Create a new lesson");
     }
 
     public override async Task HandleAsync(CreateLessonRequest req, CancellationToken ct) {
