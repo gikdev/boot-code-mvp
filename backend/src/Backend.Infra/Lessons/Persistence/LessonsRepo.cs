@@ -18,6 +18,11 @@ public class LessonsRepo(MainDbCtx db) : ILessonsRepo {
         return await db.Lessons.ToListAsync();
     }
 
+    public Task RemoveAsync(Lesson lesson) {
+        db.Remove(lesson);
+        return Task.CompletedTask;
+    }
+
     public async Task SaveChangesAsync() {
         await db.SaveChangesAsync();
     }

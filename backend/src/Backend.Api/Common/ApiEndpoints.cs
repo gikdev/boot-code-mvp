@@ -10,6 +10,6 @@ public static class ApiEndpoints {
         public const string List = $"{Base}";
 
         public const string GetById = $"{Base}/{{id:guid}}";
-        public const string Delete = $"{Base}/{{id:guid}}";
+        public const string DeleteById = $"{Base}/{{id:guid}}";
     }
 }

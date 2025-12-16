@@ -36,4 +36,8 @@ public static class Mappings {
     public static GetLessonByIdQuery MapToQuery(this GetLessonByIdRequest request) {
         return new GetLessonByIdQuery(request.Id);
     }
+
+    public static DeleteLessonByIdCommand MapToCommand(this DeleteLessonByIdRequest request) {
+        return new DeleteLessonByIdCommand(request.Id);
+    }
 }
