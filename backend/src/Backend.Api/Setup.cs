@@ -39,11 +39,12 @@ public static class Setup {
         app.MapApiEndpoints();
 
         app.MapOpenApi();
-        app.MapScalarApiReference(o => {
-            o.Title = "BootCode MVP API";
-            // o.Layout = ScalarLayout.Classic;
-            o.Theme = ScalarTheme.DeepSpace;
-        });
+        app.MapScalarApiReference(o => o
+            .WithTitle("BootCode MVP API")
+            // .WithClassicLayout()
+            .WithTheme(ScalarTheme.DeepSpace)
+            .WithDefaultHttpClient(ScalarTarget.JavaScript, ScalarClient.Fetch)
+        );
 
         return app;
     }
