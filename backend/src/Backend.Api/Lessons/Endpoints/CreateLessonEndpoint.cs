@@ -1,36 +1,45 @@
 using Backend.Api.Common;
 using Backend.Contracts.Lessons;
-using FastEndpoints;
 using MediatR;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Api.Lessons.Endpoints;
 
-public class CreateLessonEndpoint : Ep.Req<CreateLessonRequest>.Res<LessonSmallResponse> {
+public class CreateLessonEndpointMarker {
+}
+
+public static class CreateLessonEndpoint {
     public const string Name = "CreateLesson";
 
-    public required ISender Mediator { get; init; }
+    public static IEndpointRouteBuilder MapCreateLesson(this IEndpointRouteBuilder app) {
+        app
+            .MapPost(ApiEndpoints.Lessons.Create, Handle)
+            .Produces<LessonSmallResponse>(StatusCodes.Status201Created)
+            .WithSummary("Create a new lesson")
+            .WithTags(ApiTags.Lessons)
+            .WithName(Name);
 
-    public override void Configure() {
-        AllowAnonymous();
-        Post(ApiEndpoints.Lessons.Create);
-        Description(b => b.WithName(Name).WithTags(ApiTags.Lessons));
-        Summary(s => s.Summary = "Create a new lesson");
+        return app;
     }
 
-    public override async Task HandleAsync(CreateLessonRequest req, CancellationToken ct) {
-        Logger.LogDebug("POST {EndpointName} received.", Name);
+    private static async Task<IResult> Handle(
+        [FromServices] ILogger<CreateLessonEndpointMarker> logger,
+        [FromServices] ISender mediator,
+        [FromBody] CreateLessonRequest request
+    ) {
+        if (logger.IsEnabled(LogLevel.Debug))
+            logger.LogDebug("POST {EndpointName} received with {@Data}.", Name, request);
 
-        var result = await Mediator.Send(req.MapToCommand(), ct);
+        var result = await mediator.Send(request.MapToCommand());
 
         if (result.IsError) {
             var errors = result.Errors;
-            Logger.LogInformation("POST {EndpointName} failed with {ErrorCount} errors.", Name, errors.Count);
-            await Send.SendErrorListAsync(errors);
-            return;
+            logger.LogInformation("POST {EndpointName} failed with {ErrorCount} errors.", Name, errors.Count);
+            return ApiResults.Problem(errors);
         }
 
         var lesson = result.Value;
-        Logger.LogInformation("POST {EndpointName} succeeded with LessonId {LessonId}", Name, lesson.Id);
-        await Send.OkAsync(lesson.MapToSmallResponse(), ct);
+        logger.LogInformation("POST {EndpointName} succeeded with LessonId {LessonId}", Name, lesson.Id);
+        return Results.Ok(lesson.MapToSmallResponse());
     }
 }

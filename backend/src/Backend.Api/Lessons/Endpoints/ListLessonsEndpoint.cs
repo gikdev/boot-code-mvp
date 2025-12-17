@@ -1,30 +1,38 @@
 using Backend.Api.Common;
 using Backend.App.Lessons.Queries.ListLessons;
 using Backend.Contracts.Lessons;
-using FastEndpoints;
 using MediatR;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Api.Lessons.Endpoints;
 
-public class ListLessonsEndpoint : Ep.NoReq.Res<LessonListResponse> {
+public class ListLessonsEndpointMarker {
+}
+
+public static class ListLessonsEndpoint {
     public const string Name = "ListLessons";
 
-    public required ISender Mediator { get; init; }
+    public static IEndpointRouteBuilder MapListLessons(this IEndpointRouteBuilder app) {
+        app
+            .MapGet(ApiEndpoints.Lessons.List, Handle)
+            .Produces<LessonListResponse>()
+            .WithSummary("List lessons")
+            .WithTags(ApiTags.Lessons)
+            .WithName(Name);
 
-    public override void Configure() {
-        AllowAnonymous();
-        Get(ApiEndpoints.Lessons.List);
-        Description(b => b.WithName(Name).WithTags(ApiTags.Lessons));
-        Summary(s => s.Summary = "List lessons");
+        return app;
     }
 
-    public override async Task HandleAsync(CancellationToken ct) {
-        Logger.LogDebug("GET {EndpointName} received.", Name);
+    private static async Task<IResult> Handle(
+        [FromServices] ILogger<ListLessonsEndpointMarker> logger,
+        [FromServices] ISender mediator
+    ) {
+        logger.LogDebug("GET {EndpointName} received.", Name);
 
-        var lessonList = await Mediator.Send(new ListLessonsQuery(), ct);
+        var lessonList = await mediator.Send(new ListLessonsQuery());
 
-        Logger.LogInformation("POST {EndpointName} succeeded", Name);
+        logger.LogInformation("POST {EndpointName} succeeded", Name);
 
-        await Send.OkAsync(lessonList.MapToListResponse(), ct);
+        return Results.Ok(lessonList.MapToListResponse());
     }
 }

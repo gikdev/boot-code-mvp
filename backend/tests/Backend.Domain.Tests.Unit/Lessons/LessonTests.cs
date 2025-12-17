@@ -3,7 +3,7 @@ using FluentAssertions;
 
 namespace Backend.Domain.Tests.Unit.Lessons;
 
-public class LessonTests() {
+public class LessonTests {
     [Fact]
     public void Create_ShouldReturnError_WhenTitleIsEmpty() {
         // Arrange

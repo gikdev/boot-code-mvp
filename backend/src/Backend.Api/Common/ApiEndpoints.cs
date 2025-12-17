@@ -9,8 +9,8 @@ public static class ApiEndpoints {
         public const string Create = $"{Base}";
         public const string List = $"{Base}";
 
-        public const string GetById = $"{Base}/{{Id:guid}}";
-        public const string UpdateItselfById = $"{Base}/{{Id:guid}}";
-        public const string DeleteById = $"{Base}/{{Id:guid}}";
+        public const string GetById = $"{Base}/{{id:guid}}";
+        public const string UpdateItselfById = $"{Base}/{{id:guid}}";
+        public const string DeleteById = $"{Base}/{{id:guid}}";
     }
 }

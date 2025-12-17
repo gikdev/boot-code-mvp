@@ -1,35 +1,47 @@
 using Backend.Api.Common;
 using Backend.Contracts.Lessons;
-using FastEndpoints;
 using MediatR;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Api.Lessons.Endpoints;
 
-public class UpdateLessonItselfByIdEndpoint : Ep.Req<UpdateLessonItselfByIdRequest>.NoRes {
+public class UpdateLessonItselfByIdEndpointMarker {
+}
+
+public static class UpdateLessonItselfByIdEndpoint {
     public const string Name = "UpdateLessonItselfById";
 
-    public required ISender Mediator { get; init; }
+    public static IEndpointRouteBuilder MapUpdateLessonItselfById(this IEndpointRouteBuilder app) {
+        app
+            .MapPut(ApiEndpoints.Lessons.UpdateItselfById, Handle)
+            .Produces(StatusCodes.Status204NoContent)
+            .WithSummary("Update lesson itself by ID")
+            .WithTags(ApiTags.Lessons)
+            .WithName(Name);
 
-    public override void Configure() {
-        AllowAnonymous();
-        Put(ApiEndpoints.Lessons.UpdateItselfById);
-        Description(b => b.WithName(Name).WithTags(ApiTags.Lessons));
-        Summary(s => s.Summary = "Update lesson itself by ID");
+        return app;
     }
 
-    public override async Task HandleAsync(UpdateLessonItselfByIdRequest req, CancellationToken ct) {
-        Logger.LogDebug("PUT {EndpointName} #{LessonId} received with.", Name, req.Id);
+    private static async Task<IResult> Handle(
+        [FromServices] ILogger<UpdateLessonItselfByIdEndpointMarker> logger,
+        [FromServices] ISender mediator,
+        [FromRoute] Guid id,
+        [FromBody] UpdateLessonItselfByIdRequest request
+    ) {
+        if (logger.IsEnabled(LogLevel.Debug))
+            logger.LogDebug("PUT {EndpointName} #{LessonId} received with {@Data}.", Name, id, request);
 
-        var result = await Mediator.Send(req.MapToCommand(), ct);
+        var result = await mediator.Send(request.MapToCommand(id));
 
         if (result.IsError) {
             var errors = result.Errors;
-            Logger.LogInformation("PUT {EndpointName} #{LessonId} failed with {ErrorCount} errors.", Name, req.Id, errors.Count);
-            await Send.SendErrorListAsync(errors);
-            return;
+            logger.LogInformation("PUT {EndpointName} #{LessonId} failed with {ErrorCount} errors.", Name, id,
+                errors.Count);
+            return ApiResults.Problem(errors);
         }
 
-        Logger.LogInformation("PUT {EndpointName} #{LessonId} succeeded.", Name, req.Id);
-        await Send.NoContentAsync(ct);
+        logger.LogInformation("PUT {EndpointName} #{LessonId} succeeded.", Name, id);
+
+        return Results.NoContent();
     }
 }

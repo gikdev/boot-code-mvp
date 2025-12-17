@@ -17,6 +17,10 @@ quote_type = double
 [*.{cs,md,js,jsx,ts,tsx,xml,csproj,slnx,props,html,css,json}]
 indent_size = 4
 
+# .editorconfig
+[*.{xml,csproj,vbproj,props,targets,config}]
+xml_space_before_slash = true
+
 [*.cs]
 # Use K&R brace style (instead of Allman)
 csharp_new_line_before_open_brace = none

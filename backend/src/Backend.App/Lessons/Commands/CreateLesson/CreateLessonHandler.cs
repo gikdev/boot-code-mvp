@@ -11,7 +11,10 @@ public class CreateLessonHandler(
     ILogger<CreateLessonHandler> logger
 ) : IRequestHandler<CreateLessonCommand, ErrorOr<Lesson>> {
     public async Task<ErrorOr<Lesson>> Handle(CreateLessonCommand req, CancellationToken ct) {
-        logger.LogDebug("Creating lesson with title '{Title}' at position '{Position}', which has content '{HasContent}'", req.Title, req.Position, req.Content != null);
+        logger.LogDebug(
+            "Creating lesson with title '{Title}' at position '{Position}', which has content '{HasContent}'",
+            req.Title, req.Position, req.Content != null
+        );
 
         var result = Lesson.Create(
             req.Title,

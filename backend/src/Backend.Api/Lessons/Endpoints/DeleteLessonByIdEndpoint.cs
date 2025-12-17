@@ -1,35 +1,44 @@
 using Backend.Api.Common;
-using Backend.Contracts.Lessons;
-using FastEndpoints;
+using Backend.App.Lessons.Commands.DeleteLessonById;
 using MediatR;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Api.Lessons.Endpoints;
 
-public class DeleteLessonByIdEndpoint : Ep.Req<DeleteLessonByIdRequest>.NoRes {
+public class DeleteLessonByIdEndpointMarker {
+}
+
+public static class DeleteLessonByIdEndpoint {
     public const string Name = "DeleteLessonById";
 
-    public required ISender Mediator { get; init; }
+    public static IEndpointRouteBuilder MapDeleteLessonById(this IEndpointRouteBuilder app) {
+        app
+            .MapDelete(ApiEndpoints.Lessons.DeleteById, Handle)
+            .Produces(StatusCodes.Status204NoContent)
+            .WithSummary("Delete a lesson by ID")
+            .WithTags(ApiTags.Lessons)
+            .WithName(Name);
 
-    public override void Configure() {
-        AllowAnonymous();
-        Delete(ApiEndpoints.Lessons.DeleteById);
-        Description(b => b.WithName(Name).WithTags(ApiTags.Lessons));
-        Summary(s => s.Summary = "Delete a lesson by ID");
+        return app;
     }
 
-    public override async Task HandleAsync(DeleteLessonByIdRequest req, CancellationToken ct) {
-        Logger.LogDebug("DELETE {EndpointName} #{LessonId} received.", Name, req.Id);
+    private static async Task<IResult> Handle(
+        [FromServices] ILogger<DeleteLessonByIdEndpointMarker> logger,
+        [FromServices] ISender mediator,
+        [FromRoute] Guid id
+    ) {
+        logger.LogDebug("DELETE {EndpointName} #{LessonId} received.", Name, id);
 
-        var result = await Mediator.Send(req.MapToCommand(), ct);
+        var result = await mediator.Send(new DeleteLessonByIdCommand(id));
 
         if (result.IsError) {
             var errors = result.Errors;
-            Logger.LogInformation("DELETE {EndpointName} #{LessonId} failed with {ErrorCount} errors.", Name, req.Id, errors.Count);
-            await Send.SendErrorListAsync(errors);
-            return;
+            logger.LogInformation("DELETE {EndpointName} #{LessonId} failed with {ErrorCount} errors.", Name, id,
+                errors.Count);
+            return ApiResults.Problem(errors);
         }
 
-        Logger.LogInformation("DELETE {EndpointName} #{LessonId} succeeded.", Name, req.Id);
-        await Send.NoContentAsync(ct);
+        logger.LogInformation("DELETE {EndpointName} #{LessonId} succeeded.", Name, id);
+        return Results.NoContent();
     }
 }

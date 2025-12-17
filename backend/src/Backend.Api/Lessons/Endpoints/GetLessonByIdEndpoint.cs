@@ -1,36 +1,47 @@
 using Backend.Api.Common;
+using Backend.App.Lessons.Queries.GetLessonById;
 using Backend.Contracts.Lessons;
 using ErrorOr;
-using FastEndpoints;
 using MediatR;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Api.Lessons.Endpoints;
 
-public class GetLessonByIdEndpoint : Ep.Req<GetLessonByIdRequest>.Res<LessonFullResponse> {
+public class GetLessonByIdEndpointMarker {
+}
+
+public static class GetLessonByIdEndpoint {
     public const string Name = "GetLessonById";
 
-    public required ISender Mediator { get; init; }
+    public static IEndpointRouteBuilder MapGetLessonById(this IEndpointRouteBuilder app) {
+        app
+            .MapGet(ApiEndpoints.Lessons.GetById, Handle)
+            .Produces<LessonFullResponse>()
+            .ProducesProblem(StatusCodes.Status404NotFound)
+            .WithSummary("Get lesson by ID")
+            .WithTags(ApiTags.Lessons)
+            .WithName(Name);
 
-    public override void Configure() {
-        AllowAnonymous();
-        Get(ApiEndpoints.Lessons.GetById);
-        Description(b => b.WithName(Name).WithTags(ApiTags.Lessons));
-        Summary(s => s.Summary = "Get lesson by ID");
+        return app;
     }
 
-    public override async Task HandleAsync(GetLessonByIdRequest req, CancellationToken ct) {
-        Logger.LogDebug("GET {EndpointName} #{LessonId} received.", Name, req.Id);
+    private static async Task<IResult> Handle(
+        [FromServices] ILogger<GetLessonByIdEndpointMarker> logger,
+        [FromServices] ISender mediator,
+        [FromRoute] Guid id
+    ) {
+        logger.LogDebug("GET {EndpointName} #{LessonId} received.", Name, id);
 
-        var lesson = await Mediator.Send(req.MapToQuery(), ct);
+        var lesson = await mediator.Send(new GetLessonByIdQuery(id));
 
         if (lesson is null) {
             List<Error> errors = [Error.NotFound("درس پیدا نشد.")];
-            Logger.LogInformation("GET {EndpointName} #{LessonId} failed with {ErrorCount} errors.", Name, req.Id, errors.Count);
-            await Send.SendErrorListAsync(errors);
-            return;
+            logger.LogInformation("GET {EndpointName} #{LessonId} failed with {ErrorCount} errors.", Name, id,
+                errors.Count);
+            return ApiResults.Problem(errors);
         }
 
-        Logger.LogInformation("GET {EndpointName} #{LessonId} succeeded", Name, lesson.Id);
-        await Send.OkAsync(lesson.MapToFullResponse(), ct);
+        logger.LogInformation("GET {EndpointName} #{LessonId} succeeded", Name, lesson.Id);
+        return Results.Ok(lesson.MapToFullResponse());
     }
 }

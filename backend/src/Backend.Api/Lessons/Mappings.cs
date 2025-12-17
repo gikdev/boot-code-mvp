@@ -22,7 +22,7 @@ public static class Mappings {
 
     public static LessonListResponse MapToListResponse(this List<Lesson> lessonList) {
         return new LessonListResponse {
-            Items = lessonList.Select(l => l.MapToSmallResponse()),
+            Items = lessonList.Select(l => l.MapToSmallResponse())
         };
     }
 
@@ -35,15 +35,7 @@ public static class Mappings {
         };
     }
 
-    public static GetLessonByIdQuery MapToQuery(this GetLessonByIdRequest request) {
-        return new GetLessonByIdQuery(request.Id);
-    }
-
-    public static DeleteLessonByIdCommand MapToCommand(this DeleteLessonByIdRequest request) {
-        return new DeleteLessonByIdCommand(request.Id);
-    }
-
-    public static UpdateLessonItselfByIdCommand MapToCommand(this UpdateLessonItselfByIdRequest request) {
-        return new UpdateLessonItselfByIdCommand(request.Id, request.Title, request.Position);
+    public static UpdateLessonItselfByIdCommand MapToCommand(this UpdateLessonItselfByIdRequest request, Guid id) {
+        return new UpdateLessonItselfByIdCommand(id, request.Title, request.Position);
     }
 }
