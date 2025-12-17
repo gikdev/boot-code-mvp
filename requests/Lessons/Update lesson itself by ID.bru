@@ -1,0 +1,57 @@
+meta {
+  name: Update lesson itself by ID
+  type: http
+  seq: 5
+}
+
+put {
+  url: {{baseUrl}}/api/lessons/:id
+  body: json
+  auth: inherit
+}
+
+params:path {
+  id: 
+}
+
+body:json {
+  {
+    "title": "",
+    "position": 0
+  }
+}
+
+example {
+  name: 204 Response
+  description: No Content
+  
+  request: {
+    url: {{baseUrl}}/api/lessons/:id
+    method: PUT
+    mode: json
+    params:path: {
+      id: 
+    }
+  
+    body:json: {
+      {
+        "title": "",
+        "position": 0
+      }
+    }
+  }
+  
+  response: {
+    status: {
+      code: 204
+      text: No Content
+    }
+  
+    body: {
+      type: text
+      content: '''
+  
+      '''
+    }
+  }
+}
