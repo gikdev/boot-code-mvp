@@ -1,9 +1,10 @@
 using System.Text.Json.Serialization;
 using Scalar.AspNetCore;
+using Serilog;
 
 namespace Backend.Api;
 
-public static class DependencyInjection {
+public static class Setup {
     private const JsonNumberHandling jsonNumberHandling = JsonNumberHandling.Strict;
 
     public static IServiceCollection AddApiStuff(this IServiceCollection services) {
@@ -45,5 +46,15 @@ public static class DependencyInjection {
         });
 
         return app;
+    }
+
+    public static IHostBuilder ConfigLoggingStuff(this IHostBuilder host, IConfiguration config) {
+        Log.Logger = new LoggerConfiguration()
+            .ReadFrom.Configuration(config)
+            .CreateLogger();
+
+        host.UseSerilog();
+
+        return host;
     }
 }
