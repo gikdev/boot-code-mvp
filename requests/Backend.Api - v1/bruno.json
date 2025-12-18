@@ -1,6 +1,6 @@
 {
   "version": "1",
-  "name": "BootCode MVP API",
+  "name": "Backend.Api | v1",
   "type": "collection",
   "ignore": [
     "node_modules",
