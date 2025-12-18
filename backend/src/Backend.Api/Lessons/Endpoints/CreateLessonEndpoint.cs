@@ -1,5 +1,7 @@
 using Backend.Api.Common;
+using Backend.Api.Lessons.Validators;
 using Backend.Contracts.Lessons;
+using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,8 +23,12 @@ internal class CreateLessonEndpoint : EndpointBase {
     private async Task<IResult> Handle(
         [FromServices] ILogger<CreateLessonEndpoint> logger,
         [FromServices] ISender mediator,
+        [FromServices] IValidator<CreateLessonRequest> validator,
         [FromBody] CreateLessonRequest request
     ) {
+        var validationResult = await validator.ValidateAsync(request);
+        if (!validationResult.IsValid) return Results.BadRequest(validationResult.Errors);
+
         if (logger.IsEnabled(LogLevel.Debug))
             logger.LogDebug("POST {EndpointName} received with {@Request}.", Name, request);
 

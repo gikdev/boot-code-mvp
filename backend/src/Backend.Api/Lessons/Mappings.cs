@@ -1,7 +1,8 @@
+using Backend.Api.Lessons.Validators;
+using Backend.App.Lessons.Commands.ChangeLessonsPositions;
 using Backend.App.Lessons.Commands.CreateLesson;
-using Backend.App.Lessons.Commands.DeleteLessonById;
+using Backend.App.Lessons.Commands.UpdateLessonContentById;
 using Backend.App.Lessons.Commands.UpdateLessonItselfById;
-using Backend.App.Lessons.Queries.GetLessonById;
 using Backend.Contracts.Lessons;
 using Backend.Domain.Lessons;
 
@@ -37,5 +38,15 @@ internal static class Mappings {
 
     internal static UpdateLessonItselfByIdCommand MapToCommand(this UpdateLessonItselfByIdRequest request, Guid id) {
         return new UpdateLessonItselfByIdCommand(id, request.Title, request.Position);
+    }
+
+    internal static UpdateLessonContentByIdCommand MapToCommand(this UpdateLessonContentByIdRequest request, Guid id) {
+        return new UpdateLessonContentByIdCommand(id, request.Content);
+    }
+
+    internal static ChangeLessonsPositionsCommand MapToCommand(this ChangeLessonsPositionsRequest request) {
+        var dtos = request.Lessons.Select(x => new ChangeLessonPositionDto(x.LessonId, x.NewPosition));
+
+        return new ChangeLessonsPositionsCommand(dtos);
     }
 }

@@ -18,6 +18,10 @@ internal class LessonsRepo(MainDbCtx db) : ILessonsRepo {
         return await db.Lessons.ToListAsync();
     }
 
+    public async Task<List<Lesson>> ListByIdsAsync(List<Guid> ids) {
+        return await db.Lessons.Where(l => ids.Contains(l.Id)).ToListAsync();
+    }
+
     public Task RemoveAsync(Lesson lesson) {
         db.Remove(lesson);
         return Task.CompletedTask;
@@ -30,5 +34,10 @@ internal class LessonsRepo(MainDbCtx db) : ILessonsRepo {
     public Task UpdateAsync(Lesson lesson) {
         db.Lessons.Update(lesson);
         return Task.CompletedTask;
+    }
+
+    public async Task UpdateListAsync(List<Lesson> lessons) {
+        foreach (var lesson in lessons)
+            await UpdateAsync(lesson);
     }
 }

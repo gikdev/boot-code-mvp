@@ -2,8 +2,8 @@ using FluentValidation;
 
 namespace Backend.App.Lessons.Queries.GetLessonById;
 
-internal class GetLessonByIdValidator : AbstractValidator<GetLessonByIdQuery> {
-    internal GetLessonByIdValidator() {
+public class GetLessonByIdValidator : AbstractValidator<GetLessonByIdQuery> {
+    public GetLessonByIdValidator() {
         RuleFor(x => x.Id)
             .NotEmpty();
     }

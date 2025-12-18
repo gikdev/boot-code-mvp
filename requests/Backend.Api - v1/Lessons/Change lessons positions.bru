@@ -1,23 +1,23 @@
 meta {
-  name: Update lesson itself by ID
+  name: Change lessons positions
   type: http
-  seq: 6
+  seq: 1
 }
 
-put {
-  url: {{baseUrl}}/api/lessons/:id
+patch {
+  url: {{baseUrl}}/api/lessons/positions
   body: json
   auth: inherit
 }
 
-params:path {
-  id: 
-}
-
 body:json {
   {
-    "title": "",
-    "position": 0
+    "lessons": [
+      {
+        "lessonId": "",
+        "newPosition": 0
+      }
+    ]
   }
 }
 
@@ -26,17 +26,17 @@ example {
   description: No Content
   
   request: {
-    url: {{baseUrl}}/api/lessons/:id
-    method: PUT
+    url: {{baseUrl}}/api/lessons/positions
+    method: PATCH
     mode: json
-    params:path: {
-      id: 
-    }
-  
     body:json: {
       {
-        "title": "",
-        "position": 0
+        "lessons": [
+          {
+            "lessonId": "",
+            "newPosition": 0
+          }
+        ]
       }
     }
   }

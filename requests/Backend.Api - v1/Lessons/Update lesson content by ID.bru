@@ -1,12 +1,12 @@
 meta {
-  name: Delete a lesson by ID
+  name: Update lesson content by ID
   type: http
-  seq: 4
+  seq: 7
 }
 
-delete {
-  url: {{baseUrl}}/api/lessons/:id
-  body: none
+put {
+  url: {{baseUrl}}/api/lessons/:id/content
+  body: json
   auth: inherit
 }
 
@@ -14,16 +14,28 @@ params:path {
   id: 
 }
 
+body:json {
+  {
+    "content": ""
+  }
+}
+
 example {
   name: 204 Response
   description: No Content
   
   request: {
-    url: {{baseUrl}}/api/lessons/:id
-    method: DELETE
-    mode: none
+    url: {{baseUrl}}/api/lessons/:id/content
+    method: PUT
+    mode: json
     params:path: {
       id: 
+    }
+  
+    body:json: {
+      {
+        "content": ""
+      }
     }
   }
   

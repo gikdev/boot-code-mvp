@@ -1,33 +1,28 @@
 using Backend.Api.Common;
 using Backend.Contracts.Lessons;
-using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Api.Lessons.Endpoints;
 
-internal class UpdateLessonItselfByIdEndpoint : EndpointBase {
-    internal override string Name => "UpdateLessonItselfById";
+internal class UpdateLessonContentByIdEndpoint : EndpointBase {
+    internal override string Name => "UpdateLessonContentById";
 
     internal override void MapEndpoint(IEndpointRouteBuilder app) {
         app
-            .MapPut(ApiEndpoints.Lessons.UpdateItselfById, Handle)
+            .MapPut(ApiEndpoints.Lessons.UpdateContentById, Handle)
             .WithName(Name)
-            .WithSummary("Update lesson itself by ID")
+            .WithSummary("Update lesson content by ID")
             .WithTags(ApiTags.Lessons)
             .Produces(StatusCodes.Status204NoContent);
     }
 
     private async Task<IResult> Handle(
-        [FromServices] ILogger<UpdateLessonItselfByIdEndpoint> logger,
+        [FromServices] ILogger<UpdateLessonContentByIdEndpoint> logger,
         [FromServices] ISender mediator,
-        [FromServices] IValidator<UpdateLessonItselfByIdRequest> validator,
         [FromRoute] Guid id,
-        [FromBody] UpdateLessonItselfByIdRequest request
+        [FromBody] UpdateLessonContentByIdRequest request
     ) {
-        var validationResult = await validator.ValidateAsync(request);
-        if (!validationResult.IsValid) return Results.BadRequest(validationResult.Errors);
-
         if (logger.IsEnabled(LogLevel.Debug))
             logger.LogDebug("PUT {EndpointName} #{LessonId} received with {@Request}.", Name, id, request);
 

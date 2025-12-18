@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using FluentValidation;
 using Scalar.AspNetCore;
 using Serilog;
 
@@ -26,6 +27,7 @@ internal static class Setup {
 
         services.AddOpenApi();
         services.AddProblemDetails();
+        services.AddValidatorsFromAssemblyContaining<Program>();
 
         return services;
     }
