@@ -18,7 +18,7 @@ internal class UpdateLessonItselfByIdEndpoint : EndpointBase {
     }
 
     private async Task<IResult> Handle(
-        [FromServices] ILogger<UpdateLessonItselfByIdEndpointMarker> logger,
+        [FromServices] ILogger<UpdateLessonItselfByIdEndpoint> logger,
         [FromServices] ISender mediator,
         [FromRoute] Guid id,
         [FromBody] UpdateLessonItselfByIdRequest request
@@ -38,6 +38,4 @@ internal class UpdateLessonItselfByIdEndpoint : EndpointBase {
 
         return Results.NoContent();
     }
-
-    private class UpdateLessonItselfByIdEndpointMarker { }
 }

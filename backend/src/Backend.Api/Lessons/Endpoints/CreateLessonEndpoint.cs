@@ -19,7 +19,7 @@ internal class CreateLessonEndpoint : EndpointBase {
     }
 
     private async Task<IResult> Handle(
-        [FromServices] ILogger<CreateLessonEndpointMarker> logger,
+        [FromServices] ILogger<CreateLessonEndpoint> logger,
         [FromServices] ISender mediator,
         [FromBody] CreateLessonRequest request
     ) {
@@ -38,6 +38,4 @@ internal class CreateLessonEndpoint : EndpointBase {
         logger.LogInformation("POST {EndpointName} succeeded with LessonId {LessonId}", Name, lesson.Id);
         return Results.Ok(lesson.MapToSmallResponse());
     }
-
-    private class CreateLessonEndpointMarker {}
 }

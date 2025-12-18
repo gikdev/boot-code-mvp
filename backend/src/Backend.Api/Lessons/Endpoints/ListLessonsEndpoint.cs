@@ -19,7 +19,7 @@ internal class ListLessonsEndpoint : EndpointBase {
     }
 
     private async Task<IResult> Handle(
-        [FromServices] ILogger<ListLessonsEndpointMarker> logger,
+        [FromServices] ILogger<ListLessonsEndpoint> logger,
         [FromServices] ISender mediator
     ) {
         logger.LogDebug("GET {EndpointName} received.", Name);
@@ -30,6 +30,4 @@ internal class ListLessonsEndpoint : EndpointBase {
 
         return Results.Ok(lessonList.MapToListResponse());
     }
-
-    private class ListLessonsEndpointMarker { }
 }

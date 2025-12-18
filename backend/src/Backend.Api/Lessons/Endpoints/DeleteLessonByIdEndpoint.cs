@@ -19,7 +19,7 @@ internal class DeleteLessonByIdEndpoint : EndpointBase {
     }
 
     private async Task<IResult> Handle(
-        [FromServices] ILogger<DeleteLessonByIdEndpointMarker> logger,
+        [FromServices] ILogger<DeleteLessonByIdEndpoint> logger,
         [FromServices] ISender mediator,
         [FromRoute] Guid id
     ) {
@@ -37,6 +37,4 @@ internal class DeleteLessonByIdEndpoint : EndpointBase {
         logger.LogInformation("DELETE {EndpointName} #{LessonId} succeeded.", Name, id);
         return Results.NoContent();
     }
-
-    private class DeleteLessonByIdEndpointMarker {}
 }

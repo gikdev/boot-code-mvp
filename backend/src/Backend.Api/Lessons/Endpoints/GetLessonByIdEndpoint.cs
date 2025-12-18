@@ -21,7 +21,7 @@ internal class GetLessonByIdEndpoint : EndpointBase {
     }
 
     private async Task<IResult> Handle(
-        [FromServices] ILogger<GetLessonByIdEndpointMarker> logger,
+        [FromServices] ILogger<GetLessonByIdEndpoint> logger,
         [FromServices] ISender mediator,
         [FromRoute] Guid id
     ) {
@@ -38,6 +38,4 @@ internal class GetLessonByIdEndpoint : EndpointBase {
         logger.LogInformation("GET {EndpointName} #{LessonId} succeeded", Name, lesson.Id);
         return Results.Ok(lesson.MapToFullResponse());
     }
-
-    private class GetLessonByIdEndpointMarker { }
 }
