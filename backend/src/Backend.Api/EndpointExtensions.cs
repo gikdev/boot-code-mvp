@@ -13,12 +13,10 @@ internal static class EndpointExtensions {
                 typeof(EndpointBase).IsAssignableFrom(x)
             );
 
-        var methodName = nameof(EndpointBase.MapEndpoint);
-
-        foreach (var endpointType in endpointTypes)
-            endpointType
-                .GetMethod(methodName)?
-                .Invoke(null, [app]);
+        foreach (var endpointType in endpointTypes) {
+            var endpoint = Activator.CreateInstance(endpointType) as EndpointBase;
+            endpoint?.MapEndpoint(app);
+        }
 
         return app;
     }
