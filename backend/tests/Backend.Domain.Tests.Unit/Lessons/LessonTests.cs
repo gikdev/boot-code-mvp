@@ -5,7 +5,7 @@ namespace Backend.Domain.Tests.Unit.Lessons;
 
 public class LessonTests {
     [Fact]
-    public void Create_ShouldReturnError_WhenTitleIsEmpty() {
+    internal void Create_ShouldReturnError_WhenTitleIsEmpty() {
         // Arrange
         const string someInvalidTitle = "";
 
@@ -18,7 +18,7 @@ public class LessonTests {
     }
 
     [Fact]
-    public void Create_ShouldReturnLesson_WhenInputsAreValid() {
+    internal void Create_ShouldReturnLesson_WhenInputsAreValid() {
         // Arrange
         const string someValidTitle = "What is React?";
 

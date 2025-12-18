@@ -2,8 +2,11 @@ using ErrorOr;
 
 namespace Backend.Api.Common;
 
-public static class ApiResults {
-    public static IResult Problem(List<Error> errors) {
+internal abstract class EndpointBase {
+    internal abstract string Name { get; }
+    internal abstract void MapEndpoint(IEndpointRouteBuilder app);
+
+    protected static IResult Problem(List<Error> errors) {
         if (errors.Count == 0)
             return TypedResults.Problem();
 
@@ -12,7 +15,7 @@ public static class ApiResults {
             : Problem(errors[0]);
     }
 
-    public static IResult Problem(Error error) {
+    protected static IResult Problem(Error error) {
         var statusCode = error.Type switch {
             ErrorType.Conflict => StatusCodes.Status409Conflict,
             ErrorType.Validation => StatusCodes.Status400BadRequest,
@@ -26,7 +29,7 @@ public static class ApiResults {
         );
     }
 
-    public static IResult ValidationProblem(List<Error> errors) {
+    protected static IResult ValidationProblem(List<Error> errors) {
         // Convert to the RFC 7807 validation dictionary format
         var errorDictionary = errors
             .GroupBy(e => e.Code)

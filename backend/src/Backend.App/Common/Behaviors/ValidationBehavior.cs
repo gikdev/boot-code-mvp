@@ -4,7 +4,7 @@ using MediatR;
 
 namespace Backend.App.Common.Behaviors;
 
-public class ValidationBehavior<TReq, TRes>(
+internal class ValidationBehavior<TReq, TRes>(
     IValidator<TReq>? validator
 ) : IPipelineBehavior<TReq, TRes>
     where TReq : IRequest<TRes>

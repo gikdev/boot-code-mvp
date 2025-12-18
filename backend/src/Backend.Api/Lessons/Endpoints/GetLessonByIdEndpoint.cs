@@ -7,25 +7,20 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Api.Lessons.Endpoints;
 
-public class GetLessonByIdEndpointMarker {
-}
+internal class GetLessonByIdEndpoint : EndpointBase {
+    internal override string Name => "GetLessonById";
 
-public static class GetLessonByIdEndpoint {
-    public const string Name = "GetLessonById";
-
-    public static IEndpointRouteBuilder MapGetLessonById(this IEndpointRouteBuilder app) {
+    internal override void MapEndpoint(IEndpointRouteBuilder app) {
         app
             .MapGet(ApiEndpoints.Lessons.GetById, Handle)
-            .Produces<LessonFullResponse>()
-            .ProducesProblem(StatusCodes.Status404NotFound)
+            .WithName(Name)
             .WithSummary("Get lesson by ID")
             .WithTags(ApiTags.Lessons)
-            .WithName(Name);
-
-        return app;
+            .Produces<LessonFullResponse>(StatusCodes.Status200OK)
+            .ProducesProblem(StatusCodes.Status404NotFound);
     }
 
-    private static async Task<IResult> Handle(
+    private async Task<IResult> Handle(
         [FromServices] ILogger<GetLessonByIdEndpointMarker> logger,
         [FromServices] ISender mediator,
         [FromRoute] Guid id
@@ -35,13 +30,14 @@ public static class GetLessonByIdEndpoint {
         var lesson = await mediator.Send(new GetLessonByIdQuery(id));
 
         if (lesson is null) {
-            List<Error> errors = [Error.NotFound("درس پیدا نشد.")];
-            logger.LogInformation("GET {EndpointName} #{LessonId} failed with {ErrorCount} errors.", Name, id,
-                errors.Count);
-            return ApiResults.Problem(errors);
+            var error = Error.NotFound("درس پیدا نشد.");
+            logger.LogInformation("GET {EndpointName} #{LessonId} failed with 1 error (not found).", Name, id);
+            return Problem(error);
         }
 
         logger.LogInformation("GET {EndpointName} #{LessonId} succeeded", Name, lesson.Id);
         return Results.Ok(lesson.MapToFullResponse());
     }
+
+    private class GetLessonByIdEndpointMarker { }
 }

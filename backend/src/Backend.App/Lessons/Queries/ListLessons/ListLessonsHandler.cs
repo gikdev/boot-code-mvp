@@ -5,7 +5,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Backend.App.Lessons.Queries.ListLessons;
 
-public class ListLessonsHandler(
+internal class ListLessonsHandler(
     ILessonsRepo lessonsRepo,
     ILogger<ListLessonsHandler> logger
 ) : IRequestHandler<ListLessonsQuery, List<Lesson>> {

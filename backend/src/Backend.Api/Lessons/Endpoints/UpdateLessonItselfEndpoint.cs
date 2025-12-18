@@ -5,24 +5,19 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Api.Lessons.Endpoints;
 
-public class UpdateLessonItselfByIdEndpointMarker {
-}
+internal class UpdateLessonItselfByIdEndpoint : EndpointBase {
+    internal override string Name => "UpdateLessonItselfById";
 
-public static class UpdateLessonItselfByIdEndpoint {
-    public const string Name = "UpdateLessonItselfById";
-
-    public static IEndpointRouteBuilder MapUpdateLessonItselfById(this IEndpointRouteBuilder app) {
+    internal override void MapEndpoint(IEndpointRouteBuilder app) {
         app
             .MapPut(ApiEndpoints.Lessons.UpdateItselfById, Handle)
-            .Produces(StatusCodes.Status204NoContent)
+            .WithName(Name)
             .WithSummary("Update lesson itself by ID")
             .WithTags(ApiTags.Lessons)
-            .WithName(Name);
-
-        return app;
+            .Produces(StatusCodes.Status204NoContent);
     }
 
-    private static async Task<IResult> Handle(
+    private async Task<IResult> Handle(
         [FromServices] ILogger<UpdateLessonItselfByIdEndpointMarker> logger,
         [FromServices] ISender mediator,
         [FromRoute] Guid id,
@@ -35,13 +30,14 @@ public static class UpdateLessonItselfByIdEndpoint {
 
         if (result.IsError) {
             var errors = result.Errors;
-            logger.LogInformation("PUT {EndpointName} #{LessonId} failed with {ErrorCount} errors.", Name, id,
-                errors.Count);
-            return ApiResults.Problem(errors);
+            logger.LogInformation("PUT {EndpointName} #{LessonId} failed with {ErrorCount} errors.", Name, id, errors.Count);
+            return Problem(errors);
         }
 
         logger.LogInformation("PUT {EndpointName} #{LessonId} succeeded.", Name, id);
 
         return Results.NoContent();
     }
+
+    private class UpdateLessonItselfByIdEndpointMarker { }
 }

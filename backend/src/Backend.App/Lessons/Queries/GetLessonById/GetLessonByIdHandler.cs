@@ -5,7 +5,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Backend.App.Lessons.Queries.GetLessonById;
 
-public class GetLessonByIdHandler(
+internal class GetLessonByIdHandler(
     ILessonsRepo lessonsRepo,
     ILogger<GetLessonByIdHandler> logger
 ) : IRequestHandler<GetLessonByIdQuery, Lesson?> {

@@ -2,8 +2,8 @@ using FluentValidation;
 
 namespace Backend.App.Lessons.Commands.DeleteLessonById;
 
-public class DeleteLessonByIdValidator : AbstractValidator<DeleteLessonByIdCommand> {
-    public DeleteLessonByIdValidator() {
+internal class DeleteLessonByIdValidator : AbstractValidator<DeleteLessonByIdCommand> {
+    internal DeleteLessonByIdValidator() {
         RuleFor(x => x.Id)
             .NotEmpty();
     }

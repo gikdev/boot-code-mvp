@@ -4,7 +4,7 @@ using MediatR;
 
 namespace Backend.App.Lessons.Commands.UpdateLessonItselfById;
 
-public class UpdateLessonItselfByIdHandler(
+internal class UpdateLessonItselfByIdHandler(
     ILessonsRepo lessonsRepo
 ) : IRequestHandler<UpdateLessonItselfByIdCommand, ErrorOr<Success>> {
     public async Task<ErrorOr<Success>> Handle(UpdateLessonItselfByIdCommand req, CancellationToken ct) {

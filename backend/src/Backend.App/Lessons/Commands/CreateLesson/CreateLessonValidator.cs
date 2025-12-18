@@ -2,8 +2,8 @@ using FluentValidation;
 
 namespace Backend.App.Lessons.Commands.CreateLesson;
 
-public class CreateLessonValidator : AbstractValidator<CreateLessonCommand> {
-    public CreateLessonValidator() {
+internal class CreateLessonValidator : AbstractValidator<CreateLessonCommand> {
+    internal CreateLessonValidator() {
         RuleFor(x => x.Title)
             .NotEmpty().WithMessage("عنوان نباید خالی باشد.");
     }

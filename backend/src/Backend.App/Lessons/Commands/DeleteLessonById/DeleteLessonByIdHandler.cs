@@ -5,7 +5,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Backend.App.Lessons.Commands.DeleteLessonById;
 
-public class DeleteLessonByIdHandler(
+internal class DeleteLessonByIdHandler(
     ILessonsRepo lessonsRepo,
     ILogger<DeleteLessonByIdHandler> logger
 ) : IRequestHandler<DeleteLessonByIdCommand, ErrorOr<Success>> {

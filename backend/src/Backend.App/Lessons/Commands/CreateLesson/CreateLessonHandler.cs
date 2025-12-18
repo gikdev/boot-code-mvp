@@ -6,7 +6,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Backend.App.Lessons.Commands.CreateLesson;
 
-public class CreateLessonHandler(
+internal class CreateLessonHandler(
     ILessonsRepo lessonsRepo,
     ILogger<CreateLessonHandler> logger
 ) : IRequestHandler<CreateLessonCommand, ErrorOr<Lesson>> {

@@ -7,12 +7,12 @@ using Backend.Domain.Lessons;
 
 namespace Backend.Api.Lessons;
 
-public static class Mappings {
-    public static CreateLessonCommand MapToCommand(this CreateLessonRequest req) {
+internal static class Mappings {
+    internal static CreateLessonCommand MapToCommand(this CreateLessonRequest req) {
         return new CreateLessonCommand(req.Title, req.Position, req.Content);
     }
 
-    public static LessonSmallResponse MapToSmallResponse(this Lesson lesson) {
+    internal static LessonSmallResponse MapToSmallResponse(this Lesson lesson) {
         return new LessonSmallResponse {
             Id = lesson.Id,
             Position = lesson.Position,
@@ -20,13 +20,13 @@ public static class Mappings {
         };
     }
 
-    public static LessonListResponse MapToListResponse(this List<Lesson> lessonList) {
+    internal static LessonListResponse MapToListResponse(this List<Lesson> lessonList) {
         return new LessonListResponse {
             Items = lessonList.Select(l => l.MapToSmallResponse())
         };
     }
 
-    public static LessonFullResponse MapToFullResponse(this Lesson lesson) {
+    internal static LessonFullResponse MapToFullResponse(this Lesson lesson) {
         return new LessonFullResponse {
             Id = lesson.Id,
             Title = lesson.Title,
@@ -35,7 +35,7 @@ public static class Mappings {
         };
     }
 
-    public static UpdateLessonItselfByIdCommand MapToCommand(this UpdateLessonItselfByIdRequest request, Guid id) {
+    internal static UpdateLessonItselfByIdCommand MapToCommand(this UpdateLessonItselfByIdRequest request, Guid id) {
         return new UpdateLessonItselfByIdCommand(id, request.Title, request.Position);
     }
 }

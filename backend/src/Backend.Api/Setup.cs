@@ -4,10 +4,10 @@ using Serilog;
 
 namespace Backend.Api;
 
-public static class Setup {
+internal static class Setup {
     private const JsonNumberHandling jsonNumberHandling = JsonNumberHandling.Strict;
 
-    public static IServiceCollection AddApiStuff(this IServiceCollection services) {
+    internal static IServiceCollection AddApiStuff(this IServiceCollection services) {
         services.AddCors(o => {
             o.AddPolicy("DevCorsPolicy", policy => policy
                 .WithOrigins(
@@ -30,13 +30,13 @@ public static class Setup {
         return services;
     }
 
-    public static WebApplication UseApiStuff(this WebApplication app) {
+    internal static WebApplication UseApiStuff(this WebApplication app) {
         app.UseExceptionHandler();
         // app.UseHttpsRedirection();
 
         if (app.Environment.IsDevelopment()) app.UseCors("DevCorsPolicy");
 
-        app.MapApiEndpoints();
+        app.MapApiEndpoints<Program>();
 
         app.MapOpenApi();
         app.MapScalarApiReference(o => o
@@ -49,7 +49,7 @@ public static class Setup {
         return app;
     }
 
-    public static IHostBuilder ConfigLoggingStuff(this IHostBuilder host, IConfiguration config) {
+    internal static IHostBuilder ConfigLoggingStuff(this IHostBuilder host, IConfiguration config) {
         Log.Logger = new LoggerConfiguration()
             .ReadFrom.Configuration(config)
             .CreateLogger();

@@ -6,24 +6,19 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Api.Lessons.Endpoints;
 
-public class ListLessonsEndpointMarker {
-}
+internal class ListLessonsEndpoint : EndpointBase {
+    internal override string Name => "ListLessons";
 
-public static class ListLessonsEndpoint {
-    public const string Name = "ListLessons";
-
-    public static IEndpointRouteBuilder MapListLessons(this IEndpointRouteBuilder app) {
+    internal override void MapEndpoint(IEndpointRouteBuilder app) {
         app
             .MapGet(ApiEndpoints.Lessons.List, Handle)
-            .Produces<LessonListResponse>()
+            .WithName(Name)
             .WithSummary("List lessons")
             .WithTags(ApiTags.Lessons)
-            .WithName(Name);
-
-        return app;
+            .Produces<LessonListResponse>(StatusCodes.Status200OK);
     }
 
-    private static async Task<IResult> Handle(
+    private async Task<IResult> Handle(
         [FromServices] ILogger<ListLessonsEndpointMarker> logger,
         [FromServices] ISender mediator
     ) {
@@ -35,4 +30,6 @@ public static class ListLessonsEndpoint {
 
         return Results.Ok(lessonList.MapToListResponse());
     }
+
+    private class ListLessonsEndpointMarker { }
 }

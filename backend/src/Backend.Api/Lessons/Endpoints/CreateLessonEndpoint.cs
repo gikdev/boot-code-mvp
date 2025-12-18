@@ -5,41 +5,39 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Api.Lessons.Endpoints;
 
-public class CreateLessonEndpointMarker {
-}
+internal class CreateLessonEndpoint : EndpointBase {
+    internal override string Name => "CreateLesson";
 
-public static class CreateLessonEndpoint {
-    public const string Name = "CreateLesson";
-
-    public static IEndpointRouteBuilder MapCreateLesson(this IEndpointRouteBuilder app) {
+    internal override void MapEndpoint(IEndpointRouteBuilder app) {
         app
             .MapPost(ApiEndpoints.Lessons.Create, Handle)
-            .Produces<LessonSmallResponse>(StatusCodes.Status201Created)
+            .WithName(Name)
             .WithSummary("Create a new lesson")
             .WithTags(ApiTags.Lessons)
-            .WithName(Name);
-
-        return app;
+            .Accepts<CreateLessonRequest>("application/json")
+            .Produces<LessonSmallResponse>(StatusCodes.Status201Created);
     }
 
-    private static async Task<IResult> Handle(
+    private async Task<IResult> Handle(
         [FromServices] ILogger<CreateLessonEndpointMarker> logger,
         [FromServices] ISender mediator,
         [FromBody] CreateLessonRequest request
     ) {
         if (logger.IsEnabled(LogLevel.Debug))
-            logger.LogDebug("POST {EndpointName} received with {@Data}.", Name, request);
+            logger.LogDebug("POST {EndpointName} received with {@Request}.", Name, request);
 
         var result = await mediator.Send(request.MapToCommand());
 
         if (result.IsError) {
             var errors = result.Errors;
             logger.LogInformation("POST {EndpointName} failed with {ErrorCount} errors.", Name, errors.Count);
-            return ApiResults.Problem(errors);
+            return Problem(errors);
         }
 
         var lesson = result.Value;
         logger.LogInformation("POST {EndpointName} succeeded with LessonId {LessonId}", Name, lesson.Id);
         return Results.Ok(lesson.MapToSmallResponse());
     }
+
+    private class CreateLessonEndpointMarker {}
 }

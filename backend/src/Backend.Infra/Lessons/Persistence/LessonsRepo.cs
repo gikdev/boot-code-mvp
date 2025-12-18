@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Infra.Lessons.Persistence;
 
-public class LessonsRepo(MainDbCtx db) : ILessonsRepo {
+internal class LessonsRepo(MainDbCtx db) : ILessonsRepo {
     public async Task AddAsync(Lesson lesson) {
         await db.AddAsync(lesson);
     }
