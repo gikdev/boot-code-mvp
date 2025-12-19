@@ -5,10 +5,8 @@ import { TestNav } from "../../test-nav"
     selector: "app-curriculum",
     imports: [TestNav],
     template: `
-        <p>
-        curriculum works!
-        </p>
         <app-test-nav />
+        <p>curriculum works!</p>
     `,
 })
 export class Curriculum {}

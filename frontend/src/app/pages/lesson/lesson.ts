@@ -6,8 +6,9 @@ import { TestNav } from "../../test-nav"
     selector: "app-lesson",
     imports: [TestNav],
     template: `
-        <p> Lesson works! #{{ lessonId() }} </p>
         <app-test-nav />
+
+        <p> Lesson works! #{{ lessonId() }} </p>
     `,
 })
 export class Lesson {

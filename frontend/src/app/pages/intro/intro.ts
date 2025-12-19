@@ -8,14 +8,14 @@ import { TestNav } from "../../test-nav"
     selector: "app-intro",
     imports: [TestNav, HlmButtonImports],
     template: `
-        <p>intro works!</p>
         <app-test-nav />
+
+        <p>intro works!</p>
+
         <button hlmBtn (click)="createLesson()">Hello world!</button>
 
         @switch (listLessonsQuery.status()) {
-            @case ('pending') {
-                <p>Loading...</p>
-            }
+            @case ('pending') { <p>Loading...</p> }
 
             @case ('error') {
                 <p>Something went wrong: {{ listLessonsQuery.error()?.message }}</p>
@@ -28,9 +28,7 @@ import { TestNav } from "../../test-nav"
                 }
             }
 
-            @default {
-                <div>nothing...</div>
-            }
+            @default { <div>nothing...</div> }
         }
     `,
 })
@@ -39,9 +37,7 @@ export class Intro {
     listLessonsQuery = injectQuery(listLessonsOptions)
     createLessonMutation = injectMutation(() => ({
         ...createLessonMutation(),
-        onSuccess: () => {
-            this.queryClient.invalidateQueries(listLessonsOptions())
-        },
+        onSuccess: () => this.queryClient.invalidateQueries(listLessonsOptions()),
     }))
 
     createLesson() {
