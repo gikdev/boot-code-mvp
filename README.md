@@ -7,3 +7,4 @@ The platform for learning programming from 0 to employment!
 - [Dictionary](./docs/dictionary.md)
 - [Setup](./docs/setup.md)
 - [Notes](./docs/notes.md)
+- [Next version](./docs/next-version.md)
