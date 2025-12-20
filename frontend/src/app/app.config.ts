@@ -3,9 +3,8 @@ import { type ApplicationConfig, provideBrowserGlobalErrorListeners } from "@ang
 import { provideRouter } from "@angular/router"
 import { client } from "@generated-api-client"
 import { provideHeyApiClient } from "@generated-api-client/client/client.gen"
-import { provideTanStackQuery } from "@tanstack/angular-query-experimental"
+import { provideTanStackQuery, QueryClient } from "@tanstack/angular-query-experimental"
 import { routes } from "./app.routes"
-import { QueryClient } from "@tanstack/angular-query-experimental"
 
 const queryClient = new QueryClient()
 
