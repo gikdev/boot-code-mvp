@@ -1,51 +1,86 @@
+using Backend.Domain.Common;
 using ErrorOr;
+using Optional;
+using Optional.Unsafe;
 
 namespace Backend.Domain.Lessons;
 
-public class Lesson {
-#pragma warning disable CS8618
-    private Lesson() {
-    }
-#pragma warning restore CS8618
+#pragma warning disable CS8618 // For EF Core!
+
+public class Lesson : AggregateRoot {
+    private Lesson() { }
 
     private Lesson(
         string title,
         int position,
-        string? content = null,
+        string? textContent = null,
+        string? audioUrl = null,
+        string? videoUrl = null,
+        string? description = null,
+        List<Resource>? resources = null,
         Guid? id = null
-    ) {
+    ) : base(id ?? Guid.NewGuid()) {
         Title = title;
         Position = position;
-        Content = content;
-        Id = id ?? Guid.NewGuid();
+        TextContent = textContent;
+        AudioUrl = audioUrl;
+        VideoUrl = videoUrl;
+        Description = description;
+        Resources = resources ?? [];
     }
 
-    public Guid Id { get; }
     public string Title { get; private set; }
     public int Position { get; private set; }
-    public string? Content { get; private set; }
 
-    public void RenameTitle(string newTitle) {
-        Title = newTitle;
-    }
+    public string? TextContent { get; private set; }
+    public string? AudioUrl { get; private set; }
+    public string? VideoUrl { get; private set; }
+    public string? Description { get; private set; }
+    public List<Resource> Resources { get; private set; }
 
-    public void ChangePosition(int newPosition) {
-        Position = newPosition;
-    }
+    // Flexible Update method with three-state logic
+    public ErrorOr<Success> Update(
+        Option<string>? title = null,
+        Option<int>? position = null,
+        Option<string?>? textContent = null,
+        Option<string?>? audioUrl = null,
+        Option<string?>? videoUrl = null,
+        Option<string?>? description = null,
+        Option<List<Resource>>? resources = null
+    ) {
+        if (title.HasValue)
+            if (string.IsNullOrWhiteSpace(title.Value.ValueOrDefault()))
+                return LessonErrors.TitleEmpty;
 
-    public void ChangeContent(string? newContent) {
-        Content = newContent;
+        if (title.HasValue) Title = title.Value.ValueOr(() => Title);
+        if (position.HasValue) Position = position.Value.ValueOr(() => Position);
+
+        if (textContent.HasValue) TextContent = textContent.Value.Match(some: v => v, none: () => null);
+        if (audioUrl.HasValue) AudioUrl = audioUrl.Value.Match(some: v => v, none: () => null);
+        if (videoUrl.HasValue) VideoUrl = videoUrl.Value.Match(some: v => v, none: () => null);
+        if (description.HasValue) Description = description.Value.Match(some: v => v, none: () => null);
+
+        if (resources.HasValue) Resources = resources.Value.Match(
+            some: v => v ?? [],
+            none: () => Resources
+        );
+
+        return Result.Success;
     }
 
     public static ErrorOr<Lesson> Create(
         string title,
         int position,
-        string? content = null,
+        string? textContent = null,
+        string? audioUrl = null,
+        string? videoUrl = null,
+        string? description = null,
+        List<Resource>? resources = null,
         Guid? id = null
     ) {
         if (string.IsNullOrWhiteSpace(title))
             return LessonErrors.TitleEmpty;
 
-        return new Lesson(title, position, content, id);
+        return new Lesson(title, position, textContent, audioUrl, videoUrl, description, resources, id);
     }
 }
