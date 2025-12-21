@@ -11,10 +11,10 @@ max_line_length = 120
 [*.{js,jsx,ts,tsx}]
 quote_type = double
 
-# [*.{}]
-# indent_size = 2
+[*.{html,css,js,jsx,ts,tsx,csproj,slnx,props,xml,json}]
+indent_size = 2
 
-[*.{cs,md,js,jsx,ts,tsx,xml,csproj,slnx,props,html,css,json}]
+[*.{cs,md}]
 indent_size = 4
 
 # .editorconfig

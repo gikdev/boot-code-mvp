@@ -1,12 +1,15 @@
 <Solution>
-    <Folder Name="/src/">
-        <Project Path="src/Backend.Api/Backend.Api.csproj"/>
-        <Project Path="src/Backend.App/Backend.App.csproj"/>
-        <Project Path="src/Backend.Contracts/Backend.Contracts.csproj"/>
-        <Project Path="src/Backend.Domain/Backend.Domain.csproj"/>
-        <Project Path="src/Backend.Infra/Backend.Infra.csproj"/>
-    </Folder>
-    <Folder Name="/tests/">
-        <Project Path="tests/Backend.Domain.Tests.Unit/Backend.Domain.Tests.Unit.csproj"/>
-    </Folder>
+
+  <Folder Name="/src/">
+    <Project Path="src/Backend.Api/Backend.Api.csproj" />
+    <Project Path="src/Backend.App/Backend.App.csproj" />
+    <Project Path="src/Backend.Contracts/Backend.Contracts.csproj" />
+    <Project Path="src/Backend.Domain/Backend.Domain.csproj" />
+    <Project Path="src/Backend.Infra/Backend.Infra.csproj" />
+  </Folder>
+
+  <Folder Name="/tests/">
+    <Project Path="tests/Backend.Domain.Tests.Unit/Backend.Domain.Tests.Unit.csproj" />
+  </Folder>
+
 </Solution>

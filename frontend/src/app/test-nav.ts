@@ -2,9 +2,9 @@ import { Component } from "@angular/core"
 import { RouterLink } from "@angular/router"
 
 @Component({
-    selector: "app-test-nav",
-    imports: [RouterLink],
-    template: `
+  selector: "app-test-nav",
+  imports: [RouterLink],
+  template: `
         <nav>
             <a routerLink="/intro">Intro</a>
             <span> | </span>

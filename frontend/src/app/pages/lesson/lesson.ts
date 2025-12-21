@@ -3,33 +3,32 @@ import { ActivatedRoute } from "@angular/router"
 import { TestNav } from "../../test-nav"
 
 @Component({
-    selector: "app-lesson",
-    imports: [TestNav],
-    template: `
-        <app-test-nav />
-
-        <p> Lesson works! #{{ lessonId() }} </p>
-    `,
+  selector: "app-lesson",
+  imports: [TestNav],
+  template: `
+    <app-test-nav />
+    <p> Lesson works! #{{ lessonId() }} </p>
+  `,
 })
 export class Lesson {
-    public static params = {
-        lessonId: {
-            key: "lessonId",
-            typeOf: null as unknown as string,
-        },
-    }
+  public static params = {
+    lessonId: {
+      key: "lessonId",
+      typeOf: null as unknown as string,
+    },
+  }
 
-    lessonId = signal<typeof Lesson.params.lessonId.typeOf>("")
+  lessonId = signal<typeof Lesson.params.lessonId.typeOf>("")
 
-    private readonly activatedRoute = inject(ActivatedRoute)
+  private readonly activatedRoute = inject(ActivatedRoute)
 
-    constructor() {
-        this.handleParams()
-    }
+  constructor() {
+    this.handleParams()
+  }
 
-    private handleParams() {
-        this.activatedRoute.params.subscribe(params => {
-            this.lessonId.set(params[Lesson.params.lessonId.key])
-        })
-    }
+  private handleParams() {
+    this.activatedRoute.params.subscribe(params => {
+      this.lessonId.set(params[Lesson.params.lessonId.key])
+    })
+  }
 }

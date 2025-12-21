@@ -1,35 +1,35 @@
 {
-    "compileOnSave": false,
-    "compilerOptions": {
-        "strict": true,
-        "noImplicitOverride": true,
-        "noPropertyAccessFromIndexSignature": true,
-        "noImplicitReturns": true,
-        "noFallthroughCasesInSwitch": true,
-        "skipLibCheck": true,
-        "isolatedModules": true,
-        "experimentalDecorators": true,
-        "importHelpers": true,
-        "target": "ES2022",
-        "module": "preserve",
-        "paths": {
-            "#/*": ["./src/*"],
-            "@spartan-ng/helm/button": ["./src/libs/ui/button/src/index.ts"],
-            "@spartan-ng/helm/utils": ["./src/libs/ui/utils/src/index.ts"],
-            "@generated-api-client": ["./src/api/generated/client/index.ts"],
-            "@generated-api-client/*": ["./src/api/generated/client/*"]
-        }
-    },
-    "angularCompilerOptions": {
-        "enableI18nLegacyMessageIdFormat": false,
-        "strictInjectionParameters": true,
-        "strictInputAccessModifiers": true,
-        "strictTemplates": true
-    },
-    "files": [],
-    "references": [
-        {
-            "path": "./tsconfig.app.json"
-        }
-    ]
+  "compileOnSave": false,
+  "compilerOptions": {
+    "strict": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "skipLibCheck": true,
+    "isolatedModules": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "ES2022",
+    "module": "preserve",
+    "paths": {
+      "#/*": ["./src/*"],
+      "@spartan-ng/helm/button": ["./src/libs/ui/button/src/index.ts"],
+      "@spartan-ng/helm/utils": ["./src/libs/ui/utils/src/index.ts"],
+      "@generated-api-client": ["./src/api/generated/client/index.ts"],
+      "@generated-api-client/*": ["./src/api/generated/client/*"]
+    }
+  },
+  "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "strictTemplates": true
+  },
+  "files": [],
+  "references": [
+    {
+      "path": "./tsconfig.app.json"
+    }
+  ]
 }
