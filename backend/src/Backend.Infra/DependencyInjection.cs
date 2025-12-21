@@ -7,7 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 namespace Backend.Infra;
 
 public static class DependencyInjection {
-    public static IServiceCollection AddInfraStuff(this IServiceCollection services) {
+    pulic static IServiceCollection AddInfraStuff(this IServiceCollection services) {
         services.AddDb();
         services.AddRepos();
 

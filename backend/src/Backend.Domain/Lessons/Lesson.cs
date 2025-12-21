@@ -16,7 +16,6 @@ public class Lesson : AggregateRoot {
         string? textContent = null,
         string? audioUrl = null,
         string? videoUrl = null,
-        string? description = null,
         List<Resource>? resources = null,
         Guid? id = null
     ) : base(id ?? Guid.NewGuid()) {
@@ -25,7 +24,6 @@ public class Lesson : AggregateRoot {
         TextContent = textContent;
         AudioUrl = audioUrl;
         VideoUrl = videoUrl;
-        Description = description;
         Resources = resources ?? [];
     }
 
@@ -35,7 +33,6 @@ public class Lesson : AggregateRoot {
     public string? TextContent { get; private set; }
     public string? AudioUrl { get; private set; }
     public string? VideoUrl { get; private set; }
-    public string? Description { get; private set; }
     public List<Resource> Resources { get; private set; }
 
     // Flexible Update method with three-state logic
@@ -45,7 +42,6 @@ public class Lesson : AggregateRoot {
         Option<string?>? textContent = null,
         Option<string?>? audioUrl = null,
         Option<string?>? videoUrl = null,
-        Option<string?>? description = null,
         Option<List<Resource>>? resources = null
     ) {
         if (title.HasValue)
@@ -58,7 +54,6 @@ public class Lesson : AggregateRoot {
         if (textContent.HasValue) TextContent = textContent.Value.Match(some: v => v, none: () => null);
         if (audioUrl.HasValue) AudioUrl = audioUrl.Value.Match(some: v => v, none: () => null);
         if (videoUrl.HasValue) VideoUrl = videoUrl.Value.Match(some: v => v, none: () => null);
-        if (description.HasValue) Description = description.Value.Match(some: v => v, none: () => null);
 
         if (resources.HasValue) Resources = resources.Value.Match(
             some: v => v ?? [],
@@ -74,13 +69,12 @@ public class Lesson : AggregateRoot {
         string? textContent = null,
         string? audioUrl = null,
         string? videoUrl = null,
-        string? description = null,
         List<Resource>? resources = null,
         Guid? id = null
     ) {
         if (string.IsNullOrWhiteSpace(title))
             return LessonErrors.TitleEmpty;
 
-        return new Lesson(title, position, textContent, audioUrl, videoUrl, description, resources, id);
+        return new Lesson(title, position, textContent, audioUrl, videoUrl, resources, id);
     }
 }
