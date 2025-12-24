@@ -1,61 +1,34 @@
 import { Component, inject, type OnInit } from "@angular/core"
-import { createLessonMutation, listLessonsOptions } from "@generated-api-client"
 import { HlmButtonImports } from "@spartan-ng/helm/button"
-import {
-  injectMutation,
-  injectQuery,
-  QueryClient,
-} from "@tanstack/angular-query-experimental"
 import { LocalStorageProvider } from "#/app/common/local-storage-provider.service"
-import { TestNav } from "../../test-nav"
+import { Mobile } from "#/app/layouts/mobile/mobile"
+import "@phosphor-icons/web/regular"
+import "@phosphor-icons/web/fill"
+import { RouterLink } from "@angular/router";
+import { Constants } from "#/app/constants"
 
 @Component({
   selector: "app-intro",
-  imports: [TestNav, HlmButtonImports],
+  imports: [HlmButtonImports, Mobile, RouterLink],
   template: `
-    <app-test-nav />
+    <app-layout-mobile class="justify-center text-center gap-4">
+      <h1 class="text-3xl font-black">بوت‌کد؛ <br /> بوت‌کمپ 👨🏻‍💻 کدنویسی</h1>
 
-    <p>intro works!</p>
+      <img src="/in-the-zone.svg" alt="" class="max-w-full">
 
-    <button hlmBtn (click)="createLesson()">Hello world!</button>
+      <p>اینجا قراره به دنیای برنامه‌نویسی پا بذاریم! </p>
 
-    @switch (listLessonsQuery.status()) {
-      @case ('pending') { <p>Loading...</p> }
-
-      @case ('error') {
-        <p>Something went wrong: {{ listLessonsQuery.error()?.message }}</p>
-      }
-
-      @case ('success') {
-        <p>Lessons:</p>
-        @for (lesson of listLessonsQuery.data()!.items; track lesson.id) {
-          <p>{{lesson.position}} - {{lesson.title}}</p>
-        }
-      }
-
-      @default { <div>nothing...</div> }
-    }
+      <a hlmBtn variant="default" routerLink="/">
+        <span>شروع کن!</span>
+        <i class="ph-fill ph-rocket-launch text-lg"></i>
+      </a>
+    </app-layout-mobile>
   `,
 })
 export class Intro implements OnInit {
-  private readonly queryClient = inject(QueryClient)
-  protected readonly listLessonsQuery = injectQuery(listLessonsOptions)
   private readonly localStorageProvider = inject(LocalStorageProvider)
-  private readonly createLessonMutation = injectMutation(() => ({
-    ...createLessonMutation(),
-    onSuccess: () => this.queryClient.invalidateQueries(listLessonsOptions()),
-  }))
 
   async ngOnInit() {
-    await this.localStorageProvider.save("BooCodeMvp.User.IsOld", true)
-  }
-
-  createLesson() {
-    this.createLessonMutation.mutate({
-      body: {
-        title: "یه درس بی‌ربط",
-        position: 2,
-      },
-    })
+    await this.localStorageProvider.save(Constants.Storage.BootCodeMvpUserIsOld, true)
   }
 }

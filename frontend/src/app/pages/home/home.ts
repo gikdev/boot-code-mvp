@@ -1,6 +1,7 @@
 import { Component, inject, type OnInit } from "@angular/core"
 import { Router } from "@angular/router"
 import { LocalStorageProvider } from "#/app/common/local-storage-provider.service"
+import { Constants } from "#/app/constants"
 
 @Component({
   selector: "app-home",
@@ -11,11 +12,11 @@ export class Home implements OnInit {
   private readonly localStorageProvider = inject(LocalStorageProvider)
 
   async ngOnInit() {
-    var result = await this.localStorageProvider.load<boolean>(
-      "BootCodeMvp.User.IsOld",
+    const result = await this.localStorageProvider.load<boolean>(
+      Constants.Storage.BootCodeMvpUserIsOld,
     )
 
-    if (result.isOk && result.value) {
+    if (result.isOk && result.value === true) {
       this.router.navigate(["curriculum"])
       return
     }
