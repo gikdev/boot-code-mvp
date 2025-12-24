@@ -1,5 +1,4 @@
 using Backend.Api.Common;
-using Backend.Api.Lessons.Validators;
 using Backend.Contracts.Lessons;
 using FluentValidation;
 using MediatR;

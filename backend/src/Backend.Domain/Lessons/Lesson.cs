@@ -42,7 +42,7 @@ public class Lesson : AggregateRoot {
         Option<string?>? textContent = null,
         Option<string?>? audioUrl = null,
         Option<string?>? videoUrl = null,
-        Option<List<Resource>>? resources = null
+        Option<List<Resource>?>? resources = null
     ) {
         if (title.HasValue)
             if (string.IsNullOrWhiteSpace(title.Value.ValueOrDefault()))

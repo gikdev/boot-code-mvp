@@ -6,4 +6,7 @@
 
 ```sh
 dotnet ef migrations add <NAME> -p <PROJECT> -s <STARTUP_PROJECT>
+
+# EXAMPLE:
+# efma Initial -p ./src/Backend.Infra/ -s ./src/Backend.Api/
 ```

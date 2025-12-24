@@ -11,15 +11,13 @@ internal class CreateLessonHandler(
     ILogger<CreateLessonHandler> logger
 ) : IRequestHandler<CreateLessonCommand, ErrorOr<Lesson>> {
     public async Task<ErrorOr<Lesson>> Handle(CreateLessonCommand req, CancellationToken ct) {
-        logger.LogDebug(
-            "Creating lesson with title '{Title}' at position '{Position}', which has content '{HasContent}'",
-            req.Title, req.Position, req.Content != null
-        );
-
         var result = Lesson.Create(
-            req.Title,
-            req.Position ?? 1,
-            req.Content
+            title: req.Title,
+            position: req.Position ?? 1,
+            textContent: req.TextContent,
+            audioUrl: req.AudioUrl,
+            videoUrl: req.VideoUrl,
+            resources: req.Resources
         );
 
         if (result.IsError) {

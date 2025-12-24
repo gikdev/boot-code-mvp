@@ -1,6 +1,7 @@
 using Backend.App.Common.Interfaces;
 using ErrorOr;
 using MediatR;
+using Optional;
 
 namespace Backend.App.Lessons.Commands.UpdateLessonContentById;
 
@@ -11,7 +12,12 @@ internal class UpdateLessonContentByIdHandler(
         var lesson = await lessonsRepo.GetOneByIdAsync(req.Id);
         if (lesson is null) return Error.NotFound("درس پیدا نشد.");
 
-        lesson.ChangeContent(req.Content);
+        lesson.Update(
+            audioUrl: Option.Some(req.AudioUrl),
+            resources: Option.Some(req.Resources),
+            textContent: Option.Some(req.TextContent),
+            videoUrl: Option.Some(req.VideoUrl)
+        );
 
         await lessonsRepo.UpdateAsync(lesson);
         await lessonsRepo.SaveChangesAsync();

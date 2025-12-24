@@ -1,6 +1,7 @@
 using Backend.App.Common.Interfaces;
 using ErrorOr;
 using MediatR;
+using Optional;
 
 namespace Backend.App.Lessons.Commands.ChangeLessonsPositions;
 
@@ -16,7 +17,9 @@ internal class ChangeLessonsPositionsHandler(
             var item = req.Lessons.FirstOrDefault(l => l.LessonId == lesson.Id);
             if (item is null) return Error.NotFound("درس پیدا نشد.");
 
-            lesson.ChangePosition(item.NewPosition);
+            lesson.Update(
+                position: Option.Some(lesson.Position)
+            );
         }
 
         await lessonsRepo.UpdateListAsync(lessons);
