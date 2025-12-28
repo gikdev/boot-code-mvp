@@ -85,3 +85,7 @@
     @apply bg-background text-foreground;
   }
 }
+
+@utility layout-phone {
+  @apply max-w-120 mx-auto flex flex-col h-dvh;
+}

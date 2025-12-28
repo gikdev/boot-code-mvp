@@ -17,7 +17,8 @@
       "@spartan-ng/helm/button": ["./src/libs/ui/button/src/index.ts"],
       "@spartan-ng/helm/utils": ["./src/libs/ui/utils/src/index.ts"],
       "@generated-api-client": ["./src/api/generated/client/index.ts"],
-      "@generated-api-client/*": ["./src/api/generated/client/*"]
+      "@generated-api-client/*": ["./src/api/generated/client/*"],
+      "@spartan-ng/helm/card": ["./src/libs/ui/card/src/index.ts"]
     }
   },
   "angularCompilerOptions": {

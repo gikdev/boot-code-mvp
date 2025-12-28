@@ -2,11 +2,18 @@ import type { Routes } from "@angular/router"
 import { Curriculum } from "./pages/curriculum/curriculum"
 import { Home } from "./pages/home/home"
 import { Intro } from "./pages/intro/intro"
-import { Lesson } from "./pages/lesson/lesson"
+import { Lessons } from "./pages/lessons/lessons"
+
+export const AppRoutes = {
+  home: () => "/",
+  intro: () => "/intro",
+  curriculum: () => "/curriculum",
+  lesson: (lessonId: string) => `/lessons/${lessonId}`,
+}
 
 export const routes: Routes = [
-  { path: "", component: Home },
-  { path: "intro", component: Intro },
-  { path: "curriculum", component: Curriculum },
-  { path: `lesson/:${Lesson.params.lessonId.key}`, component: Lesson },
+  { path: AppRoutes.home().slice(1), component: Home },
+  { path: AppRoutes.intro().slice(1), component: Intro },
+  { path: AppRoutes.curriculum().slice(1), component: Curriculum },
+  { path: AppRoutes.lesson(":lessonId").slice(1), component: Lessons },
 ]

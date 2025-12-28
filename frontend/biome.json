@@ -10,7 +10,7 @@
   },
   "formatter": {
     "enabled": true,
-    "formatWithErrors": false,
+    "formatWithErrors": true,
     "indentStyle": "space",
     "lineEnding": "lf",
     "attributePosition": "auto",
@@ -48,6 +48,7 @@
       "interpolation": true
     },
     "formatter": {
+      "enabled": true,
       "indentScriptAndStyle": false,
       "selfCloseVoidElements": "always"
     }

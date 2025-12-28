@@ -10,6 +10,7 @@ import {
   provideTanStackQuery,
   QueryClient,
 } from "@tanstack/angular-query-experimental"
+import { withDevtools } from "@tanstack/angular-query-experimental/devtools"
 import { routes } from "./app.routes"
 
 const queryClient = new QueryClient()
@@ -20,6 +21,6 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideHttpClient(withFetch()),
     provideHeyApiClient(client),
-    provideTanStackQuery(queryClient),
+    provideTanStackQuery(queryClient, withDevtools()),
   ],
 }

@@ -10,15 +10,8 @@ import { TestNav } from "../../test-nav"
     <p> Lesson works! #{{ lessonId() }} </p>
   `,
 })
-export class Lesson {
-  public static params = {
-    lessonId: {
-      key: "lessonId",
-      typeOf: null as unknown as string,
-    },
-  }
-
-  lessonId = signal<typeof Lesson.params.lessonId.typeOf>("")
+export class Lessons {
+  lessonId = signal("")
 
   private readonly activatedRoute = inject(ActivatedRoute)
 
@@ -28,7 +21,7 @@ export class Lesson {
 
   private handleParams() {
     this.activatedRoute.params.subscribe(params => {
-      this.lessonId.set(params[Lesson.params.lessonId.key])
+      this.lessonId.set(params["lessonId"])
     })
   }
 }
