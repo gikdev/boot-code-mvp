@@ -1,8 +1,11 @@
 using Backend.Api.Common;
 using Backend.App.Lessons.Queries.GetLessonById;
 using Backend.Contracts.Lessons;
+
 using ErrorOr;
+
 using MediatR;
+
 using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Api.Lessons.Endpoints;
@@ -16,14 +19,14 @@ internal class GetLessonByIdEndpoint : EndpointBase {
             .WithName(Name)
             .WithSummary("Get lesson by ID")
             .WithTags(ApiTags.Lessons)
-            .Produces<LessonFullResponse>(StatusCodes.Status200OK)
+            .Produces<LessonFullResponse>()
             .ProducesProblem(StatusCodes.Status404NotFound);
     }
 
     private async Task<IResult> Handle(
         [FromServices] ILogger<GetLessonByIdEndpoint> logger,
-        [FromServices] ISender mediator,
-        [FromRoute] Guid id
+        [FromServices] ISender                        mediator,
+        [FromRoute]    Guid                           id
     ) {
         logger.LogDebug("GET {EndpointName} #{LessonId} received.", Name, id);
 

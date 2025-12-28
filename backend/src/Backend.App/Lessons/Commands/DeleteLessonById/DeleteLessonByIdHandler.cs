@@ -1,12 +1,15 @@
 using Backend.App.Common.Interfaces;
+
 using ErrorOr;
+
 using MediatR;
+
 using Microsoft.Extensions.Logging;
 
 namespace Backend.App.Lessons.Commands.DeleteLessonById;
 
 internal class DeleteLessonByIdHandler(
-    ILessonsRepo lessonsRepo,
+    ILessonsRepo                     lessonsRepo,
     ILogger<DeleteLessonByIdHandler> logger
 ) : IRequestHandler<DeleteLessonByIdCommand, ErrorOr<Success>> {
     public async Task<ErrorOr<Success>> Handle(DeleteLessonByIdCommand req, CancellationToken ct) {
@@ -22,8 +25,7 @@ internal class DeleteLessonByIdHandler(
         try {
             await lessonsRepo.RemoveAsync(lesson);
             await lessonsRepo.SaveChangesAsync();
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             logger.LogError(ex, "Failed to persist (delete) lesson {LessonId}", lesson.Id);
             throw;
         }

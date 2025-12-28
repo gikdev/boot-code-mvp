@@ -1,6 +1,7 @@
 ﻿using Backend.App.Common.Interfaces;
 using Backend.Infra.Common.Persistence;
 using Backend.Infra.Lessons.Persistence;
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 

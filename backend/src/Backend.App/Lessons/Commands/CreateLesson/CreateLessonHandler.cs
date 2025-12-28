@@ -1,23 +1,26 @@
 using Backend.App.Common.Interfaces;
 using Backend.Domain.Lessons;
+
 using ErrorOr;
+
 using MediatR;
+
 using Microsoft.Extensions.Logging;
 
 namespace Backend.App.Lessons.Commands.CreateLesson;
 
 internal class CreateLessonHandler(
-    ILessonsRepo lessonsRepo,
+    ILessonsRepo                 lessonsRepo,
     ILogger<CreateLessonHandler> logger
 ) : IRequestHandler<CreateLessonCommand, ErrorOr<Lesson>> {
     public async Task<ErrorOr<Lesson>> Handle(CreateLessonCommand req, CancellationToken ct) {
         var result = Lesson.Create(
-            title: req.Title,
-            position: req.Position ?? 1,
-            textContent: req.TextContent,
-            audioUrl: req.AudioUrl,
-            videoUrl: req.VideoUrl,
-            resources: req.Resources
+            req.Title,
+            req.Position ?? 1,
+            req.TextContent,
+            req.AudioUrl,
+            req.VideoUrl,
+            req.Resources
         );
 
         if (result.IsError) {
@@ -30,8 +33,7 @@ internal class CreateLessonHandler(
         try {
             await lessonsRepo.AddAsync(lesson);
             await lessonsRepo.SaveChangesAsync();
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             logger.LogError(ex, "Failed to persist lesson {LessonId}", lesson.Id);
             throw;
         }

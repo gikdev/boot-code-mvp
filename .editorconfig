@@ -8,24 +8,74 @@ indent_style = space
 trim_trailing_whitespace = true
 max_line_length = 120
 
+# Microsoft .NET properties
+csharp_indent_braces = false
+csharp_new_line_before_catch = false
+csharp_new_line_before_else = false
+csharp_new_line_before_finally = false
+csharp_new_line_before_open_brace = none
+dotnet_separate_import_directive_groups = true
+
+# ReSharper properties
+resharper_align_linq_query = true
+resharper_align_multiline_extends_list = true
+resharper_align_multiline_statement_conditions = false
+resharper_align_multiline_type_parameter_constraints = true
+resharper_align_multiline_type_parameter_list = true
+resharper_align_multiple_declaration = true
+resharper_blank_lines_after_control_transfer_statements = 1
+resharper_blank_lines_after_multiline_statements = 1
+resharper_blank_lines_around_accessor = 1
+resharper_blank_lines_around_block_case_section = 1
+resharper_blank_lines_around_multiline_case_section = 1
+resharper_blank_lines_before_block_statements = 1
+resharper_blank_lines_before_multiline_statements = 1
+resharper_csharp_allow_comment_after_lbrace = true
+resharper_csharp_empty_block_style = together
+resharper_csharp_insert_final_newline = true
+resharper_csharp_keep_blank_lines_in_code = 1
+resharper_csharp_keep_blank_lines_in_declarations = 1
+resharper_csharp_stick_comment = false
+resharper_csharp_wrap_after_declaration_lpar = true
+resharper_csharp_wrap_before_declaration_rpar = true
+resharper_csharp_wrap_before_first_type_parameter_constraint = true
+resharper_csharp_wrap_multiple_type_parameter_constraints_style = chop_always
+resharper_csharp_wrap_parameters_style = chop_if_long
+resharper_fsharp_insert_final_newline = true
+resharper_html_insert_final_newline = true
+resharper_indent_nested_fixed_stmt = true
+resharper_indent_nested_foreach_stmt = true
+resharper_indent_nested_for_stmt = true
+resharper_indent_nested_lock_stmt = true
+resharper_indent_nested_usings_stmt = true
+resharper_indent_nested_while_stmt = true
+resharper_indent_raw_literal_string = indent
+resharper_int_align = true
+resharper_outdent_statement_labels = true
+resharper_resx_insert_final_newline = true
+resharper_shaderlab_insert_final_newline = true
+resharper_t4_insert_final_newline = true
+resharper_vb_insert_final_newline = true
+resharper_wrap_before_arrow_with_expressions = true
+resharper_wrap_before_extends_colon = true
+resharper_wrap_before_primary_constructor_declaration_rpar = false
+resharper_xmldoc_insert_final_newline = true
+resharper_xml_insert_final_newline = true
+
 [*.{js,jsx,ts,tsx}]
 quote_type = double
 
-[*.{html,css,js,jsx,ts,tsx,csproj,slnx,props,xml,json}]
+[.{xml,props,slnx,csproj,js,jsx,ts,tsx,html,css,yml,yaml,json}]
 indent_size = 2
 
 [*.{cs,md}]
 indent_size = 4
 
-# .editorconfig
+[docker-compose.yml]
+indent_size = 2
+
 [*.{xml,csproj,vbproj,props,targets,config}]
 xml_space_before_slash = true
-
-[*.cs]
-# Use K&R brace style (instead of Allman)
-csharp_new_line_before_open_brace = none
-resharper_csharp_place_attribute_on_same_line = never
-resharper_csharp_indent_raw_literal_string = do_not_change
 
 [*.md]
 trim_trailing_whitespace = false

@@ -1,7 +1,9 @@
 using Backend.Api.Common;
 using Backend.App.Lessons.Queries.ListLessons;
 using Backend.Contracts.Lessons;
+
 using MediatR;
+
 using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Api.Lessons.Endpoints;
@@ -15,12 +17,12 @@ internal class ListLessonsEndpoint : EndpointBase {
             .WithName(Name)
             .WithSummary("List lessons")
             .WithTags(ApiTags.Lessons)
-            .Produces<LessonListResponse>(StatusCodes.Status200OK);
+            .Produces<LessonListResponse>();
     }
 
     private async Task<IResult> Handle(
         [FromServices] ILogger<ListLessonsEndpoint> logger,
-        [FromServices] ISender mediator
+        [FromServices] ISender                      mediator
     ) {
         logger.LogDebug("GET {EndpointName} received.", Name);
 

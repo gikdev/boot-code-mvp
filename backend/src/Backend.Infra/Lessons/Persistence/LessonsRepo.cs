@@ -1,6 +1,7 @@
 using Backend.App.Common.Interfaces;
 using Backend.Domain.Lessons;
 using Backend.Infra.Common.Persistence;
+
 using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Infra.Lessons.Persistence;

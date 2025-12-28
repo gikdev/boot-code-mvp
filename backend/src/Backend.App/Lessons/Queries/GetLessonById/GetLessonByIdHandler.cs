@@ -1,17 +1,19 @@
 using Backend.App.Common.Interfaces;
 using Backend.Domain.Lessons;
+
 using MediatR;
+
 using Microsoft.Extensions.Logging;
 
 namespace Backend.App.Lessons.Queries.GetLessonById;
 
 internal class GetLessonByIdHandler(
-    ILessonsRepo lessonsRepo,
+    ILessonsRepo                  lessonsRepo,
     ILogger<GetLessonByIdHandler> logger
 ) : IRequestHandler<GetLessonByIdQuery, Lesson?> {
     public async Task<Lesson?> Handle(
         GetLessonByIdQuery request,
-        CancellationToken cancellationToken
+        CancellationToken  cancellationToken
     ) {
         logger.LogDebug("Getting lesson by id {LessonId}", request.Id);
 

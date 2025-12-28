@@ -1,5 +1,7 @@
 using ErrorOr;
+
 using FluentValidation;
+
 using MediatR;
 
 namespace Backend.App.Common.Behaviors;
@@ -10,9 +12,9 @@ internal class ValidationBehavior<TReq, TRes>(
     where TReq : IRequest<TRes>
     where TRes : IErrorOr {
     public async Task<TRes> Handle(
-        TReq request,
+        TReq                         request,
         RequestHandlerDelegate<TRes> next,
-        CancellationToken cancellationToken
+        CancellationToken            cancellationToken
     ) {
         if (validator is null) return await next(cancellationToken);
 

@@ -8,7 +8,7 @@ internal static class EndpointExtensions {
 
         var endpointTypes = typeMarker.Assembly.DefinedTypes
             .Where(x =>
-                !x.IsAbstract &&
+                !x.IsAbstract  &&
                 !x.IsInterface &&
                 typeof(EndpointBase).IsAssignableFrom(x)
             );

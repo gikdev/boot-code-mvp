@@ -1,12 +1,14 @@
 using Backend.Api.Common;
 using Backend.App.Lessons.Commands.DeleteLessonById;
+
 using MediatR;
+
 using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Api.Lessons.Endpoints;
 
 internal class DeleteLessonByIdEndpoint : EndpointBase {
-    internal override string Name =>  "DeleteLessonById";
+    internal override string Name => "DeleteLessonById";
 
     internal override void MapEndpoint(IEndpointRouteBuilder app) {
         app
@@ -20,8 +22,8 @@ internal class DeleteLessonByIdEndpoint : EndpointBase {
 
     private async Task<IResult> Handle(
         [FromServices] ILogger<DeleteLessonByIdEndpoint> logger,
-        [FromServices] ISender mediator,
-        [FromRoute] Guid id
+        [FromServices] ISender                           mediator,
+        [FromRoute]    Guid                              id
     ) {
         logger.LogDebug("DELETE {EndpointName} #{LessonId} received.", Name, id);
 
@@ -29,8 +31,10 @@ internal class DeleteLessonByIdEndpoint : EndpointBase {
 
         if (result.IsError) {
             var errors = result.Errors;
+
             logger.LogInformation("DELETE {EndpointName} #{LessonId} failed with {ErrorCount} errors.", Name, id,
                 errors.Count);
+
             return Problem(errors);
         }
 

@@ -3,7 +3,7 @@ using Backend.App;
 using Backend.Infra;
 
 var builder = WebApplication.CreateBuilder(args);
-var config = builder.Configuration;
+var config  = builder.Configuration;
 
 builder.Host
     .ConfigLoggingStuff(config);

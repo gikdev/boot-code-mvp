@@ -1,10 +1,11 @@
 using ErrorOr;
+
 using MediatR;
 
 namespace Backend.App.Lessons.Commands.UpdateLessonItselfById;
 
 public record UpdateLessonItselfByIdCommand(
-    Guid Id,
+    Guid   Id,
     string Title,
-    int Position
+    int    Position
 ) : IRequest<ErrorOr<Success>>;

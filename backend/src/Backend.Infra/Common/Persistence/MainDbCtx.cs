@@ -1,5 +1,7 @@
 ﻿using System.Reflection;
+
 using Backend.Domain.Lessons;
+
 using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Infra.Common.Persistence;

@@ -10,20 +10,20 @@ namespace Backend.Api.Lessons;
 internal static class Mappings {
     internal static CreateLessonCommand MapToCommand(this CreateLessonRequest request) {
         return new CreateLessonCommand(
-            Title: request.Title,
-            Position: request.Position,
-            TextContent: request.TextContent,
-            AudioUrl: request.AudioUrl,
-            VideoUrl: request.VideoUrl,
-            Resources: [.. (request.Resources ?? []).Select(x => x.MapToDomain())]
+            request.Title,
+            request.Position,
+            request.TextContent,
+            request.AudioUrl,
+            request.VideoUrl,
+            [.. (request.Resources ?? []).Select(x => x.MapToDomain())]
         );
     }
 
     internal static LessonSmallResponse MapToSmallResponse(this Lesson lesson) {
         return new LessonSmallResponse {
-            Id = lesson.Id,
+            Id       = lesson.Id,
             Position = lesson.Position,
-            Title = lesson.Title
+            Title    = lesson.Title
         };
     }
 
@@ -35,20 +35,20 @@ internal static class Mappings {
 
     internal static LessonFullResponse MapToFullResponse(this Lesson lesson) {
         return new LessonFullResponse {
-            Id = lesson.Id,
-            Title = lesson.Title,
+            Id          = lesson.Id,
+            Title       = lesson.Title,
             TextContent = lesson.TextContent,
-            Position = lesson.Position,
-            AudioUrl = lesson.AudioUrl,
-            Resources = lesson.Resources.Select(x => new ResourceDto { Title = x.Title, Url = x.Url }),
-            VideoUrl = lesson.VideoUrl,
+            Position    = lesson.Position,
+            AudioUrl    = lesson.AudioUrl,
+            Resources   = lesson.Resources.Select(x => new ResourceDto { Title = x.Title, Url = x.Url }),
+            VideoUrl    = lesson.VideoUrl
         };
     }
 
     internal static ResourceDto MapToDto(this Resource resource) {
         return new ResourceDto {
             Title = resource.Title,
-            Url = resource.Url,
+            Url   = resource.Url
         };
     }
 
@@ -58,18 +58,18 @@ internal static class Mappings {
 
     internal static UpdateLessonContentByIdCommand MapToCommand(this UpdateLessonContentByIdRequest request, Guid id) {
         return new UpdateLessonContentByIdCommand(
-            Id: id,
-            TextContent: request.TextContent,
-            AudioUrl: request.AudioUrl,
-            VideoUrl: request.VideoUrl,
-            Resources: [.. (request.Resources ?? []).Select(x => x.MapToDomain())]
+            id,
+            request.TextContent,
+            request.AudioUrl,
+            request.VideoUrl,
+            [.. (request.Resources ?? []).Select(x => x.MapToDomain())]
         );
     }
 
     internal static Resource MapToDomain(this ResourceDto dto) {
         return new Resource(
-            title: dto.Title,
-            url: dto.Url
+            dto.Title,
+            dto.Url
         );
     }
 
@@ -81,8 +81,8 @@ internal static class Mappings {
 
     internal static ChangeLessonPositionDto MapToDto(this ChangeLessonPositionRequest request) {
         return new ChangeLessonPositionDto(
-            LessonId: request.LessonId,
-            NewPosition: request.NewPosition
+            request.LessonId,
+            request.NewPosition
         );
     }
 }
