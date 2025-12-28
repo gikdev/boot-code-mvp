@@ -1,0 +1,18 @@
+@switch (lessonQuery.status()) { @case ("pending") {
+<div class="flex items-center justify-center gap-2">
+  <ng-icon name="phosphorSpinnerGap" class="animate-spin" size="24" />
+  <span class="">در حال بارگذاری...</span>
+</div>
+} @case ("error") {
+<div class="flex flex-col items-center justify-center text-center gap-2">
+  <i class="ph-fill ph-warning-circle text-3xl text-destructive"></i>
+  <p class="text-destructive">مشکلی پیش آمد...</p>
+  <button hlmBtn variant="outline" (click)="lessonQuery.refetch()">
+    <span>تلاش مجدد</span>
+    <ng-icon name="phosphorArrowCounterClockwiseFill" />
+  </button>
+</div>
+} @case ("success") {
+  <!-- Done this so BiomeJS wouldn't error. -->
+  <h1 class="text-3xl font-black text-center" [textContent]="lessonQuery.data()!.title"></h1>
+} }
