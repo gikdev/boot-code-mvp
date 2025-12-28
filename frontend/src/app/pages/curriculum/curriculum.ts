@@ -1,21 +1,20 @@
 import { Component } from "@angular/core"
-import { RouterLink } from "@angular/router"
 import { NgIcon, provideIcons } from "@ng-icons/core"
-import {
-  phosphorCaretLeft,
-  phosphorNotebook,
-} from "@ng-icons/phosphor-icons/regular"
-import { HlmCard, HlmCardTitle } from "@spartan-ng/helm/card"
+import { phosphorArrowCounterClockwiseFill } from "@ng-icons/phosphor-icons/fill"
+import { phosphorSpinnerGap } from "@ng-icons/phosphor-icons/regular"
 import { injectQuery } from "@tanstack/angular-query-experimental"
 import { listLessonsOptions } from "#/api/generated/client"
 import { AppRoutes } from "#/app/app.routes"
+import { LessonCard } from "#/app/features/lessons/lesson-card/lesson-card"
 import { HlmButtonImports } from "#/libs/ui/button/src"
 
 @Component({
   selector: "app-curriculum",
-  imports: [HlmCard, HlmCardTitle, RouterLink, HlmButtonImports, NgIcon],
+  imports: [HlmButtonImports, NgIcon, LessonCard],
   templateUrl: "./curriculum.html",
-  viewProviders: [provideIcons({ phosphorNotebook, phosphorCaretLeft })],
+  viewProviders: [
+    provideIcons({ phosphorArrowCounterClockwiseFill, phosphorSpinnerGap }),
+  ],
   host: {
     class: "layout-phone items-center justify-center gap-4 p-4",
   },
