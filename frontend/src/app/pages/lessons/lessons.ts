@@ -21,6 +21,7 @@ export class Lessons {
 
   private handleParams() {
     this.activatedRoute.params.subscribe(params => {
+      // biome-ignore lint/complexity/useLiteralKeys: I'd get TS error otherwise!
       this.lessonId.set(params["lessonId"])
     })
   }
