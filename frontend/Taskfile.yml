@@ -4,6 +4,6 @@ version: '3'
 
 tasks:
   default: pnpm start
-  restore: pnpm i
+  setup: pnpm i
   check: pnpm run biome check --write .
   api: pnpm run openapi-ts

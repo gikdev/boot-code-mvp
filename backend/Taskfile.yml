@@ -5,4 +5,4 @@ tasks:
   default: dotnet run --project ./src/Backend.Api/
   dev: dotnet watch run --project ./src/Backend.Api/
   build: dotnet build --no-restore
-  restore: dotnet restore ./Backend.slnx
+  setup: dotnet restore ./Backend.slnx

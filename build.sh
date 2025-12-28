@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e  # stop if anything fails
 
-task restore
+task setup
 
 # ------------------------------
 

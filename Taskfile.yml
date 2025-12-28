@@ -3,16 +3,16 @@ version: '3'
 
 tasks:
   dev:
-    desc: Start development of `backend` & `frontend`.
     aliases: [default]
-    deps: [dev-frontend, dev-backend]
+    desc: Start development of `backend` & `frontend`.
+    deps: [fe:dev, be:dev]
 
-  dev-frontend: cd frontend && task
-  dev-backend: cd backend && task
+  fe:dev: cd frontend && task
+  be:dev: cd backend && task
   build: bash ./build.sh
   preview: cd build/ && dotnet ./Api.dll
 
-  restore:
+  setup:
     cmds:
-      - cd frontend && task restore
-      - cd backend && task restore
+      - cd frontend && task setup
+      - cd backend && task setup
