@@ -1,7 +1,0 @@
-
-Links:
-
-    - https://google.com/search?q=angular+redirect
-    - https://excalidraw.com/
-    - https://panda-css.com/docs/installation/angular
-    - https://www.radix-ui.com/colors
