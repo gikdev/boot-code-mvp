@@ -1,14 +1,17 @@
-import { Component, computed, inject } from '@angular/core';
-import { Auth } from '../auth';
-import { NgIcon, provideIcons } from '@ng-icons/core';
-import { phosphorLock, phosphorLockKeyOpen } from '@ng-icons/phosphor-icons/regular';
+import { Component, computed, inject } from "@angular/core"
+import { NgIcon, provideIcons } from "@ng-icons/core"
+import {
+  phosphorLock,
+  phosphorLockKeyOpen,
+} from "@ng-icons/phosphor-icons/regular"
+import { Auth } from "../auth"
 
 @Component({
-  selector: 'app-toggle-auth-btn',
+  selector: "app-toggle-auth-btn",
   imports: [NgIcon],
   providers: [provideIcons({ phosphorLock, phosphorLockKeyOpen })],
   template: `
-    <button (click)="toggleAdmin()" hlmBtn variant="ghost" size="icon-sm" class="absolute top-2 left-2">
+    <button (click)="toggleAdmin()" hlmBtn variant="ghost" size="icon-sm" class="absolute top-2 left-2 cursor-pointer">
       @if (isAdmin()) {
         <ng-icon name="phosphorLock" />
       } @else {

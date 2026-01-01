@@ -5,11 +5,12 @@ import { phosphorArrowCounterClockwiseFill } from "@ng-icons/phosphor-icons/fill
 import { phosphorSpinnerGap } from "@ng-icons/phosphor-icons/regular"
 import { injectQuery } from "@tanstack/angular-query-experimental"
 import { getLessonByIdOptions } from "#/api/generated/client"
+import { Mobile } from "#/app/layouts/mobile/mobile"
 import { HlmButtonImports } from "#/libs/ui/button/src"
 
 @Component({
   selector: "app-lesson",
-  imports: [HlmButtonImports, NgIcon],
+  imports: [HlmButtonImports, NgIcon, Mobile],
   viewProviders: [
     provideIcons({ phosphorArrowCounterClockwiseFill, phosphorSpinnerGap }),
   ],

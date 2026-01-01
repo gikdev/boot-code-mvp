@@ -87,5 +87,5 @@
 }
 
 @utility layout-phone {
-  @apply max-w-120 mx-auto flex flex-col h-dvh;
+  @apply max-w-120 mx-auto flex flex-col min-h-dvh gap-4 p-4;
 }

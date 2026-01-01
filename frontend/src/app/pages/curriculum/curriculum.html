@@ -1,33 +1,35 @@
-@switch (lessonsQuery.status()) { @case ("pending") {
-<div class="flex items-center justify-center gap-2">
-  <ng-icon name="phosphorSpinnerGap" class="animate-spin" size="24" />
-  <span class="">در حال بارگذاری...</span>
-</div>
-} @case ("error") {
-<div class="flex flex-col items-center justify-center text-center gap-2">
-  <i class="ph-fill ph-warning-circle text-3xl text-destructive"></i>
-  <p class="text-destructive">مشکلی پیش آمد...</p>
-  <button hlmBtn variant="outline" (click)="lessonsQuery.refetch()">
-    <span>تلاش مجدد</span>
-    <ng-icon name="phosphorArrowCounterClockwiseFill" />
-  </button>
-</div>
-} @case ("success") {
-<h1 class="text-3xl font-black text-center">
-  <span>بوت‌کد؛ </span>
-  <br />
-  <span>بوت‌کمپ 👨🏻‍💻 کدنویسی</span>
-</h1>
+<app-mobile class="items-center">
+  @switch (lessonsQuery.status()) { @case ("pending") {
+  <div class="flex items-center justify-center gap-2">
+    <ng-icon name="phosphorSpinnerGap" class="animate-spin" size="24" />
+    <span class="">در حال بارگذاری...</span>
+  </div>
+  } @case ("error") {
+  <div class="flex flex-col items-center justify-center text-center gap-2">
+    <i class="ph-fill ph-warning-circle text-3xl text-destructive"></i>
+    <p class="text-destructive">مشکلی پیش آمد...</p>
+    <button hlmBtn variant="outline" (click)="lessonsQuery.refetch()">
+      <span>تلاش مجدد</span>
+      <ng-icon name="phosphorArrowCounterClockwiseFill" />
+    </button>
+  </div>
+  } @case ("success") {
+  <h1 class="text-3xl font-black text-center">
+    <span>بوت‌کد؛ </span>
+    <br />
+    <span>بوت‌کمپ 👨🏻‍💻 کدنویسی</span>
+  </h1>
 
-<app-show-if-admin [showFallback]="false">
-  <a [routerLink]="getNewLessonPage()" hlmBtn variant="default">
-    <span>ایجاد درس</span>
-    <ng-icon name="phosphorPlus" />
-  </a>
-</app-show-if-admin>
+  <app-show-if-admin [showFallback]="false">
+    <a [routerLink]="getNewLessonPage()" hlmBtn variant="default">
+      <span>ایجاد درس</span>
+      <ng-icon name="phosphorPlus" />
+    </a>
+  </app-show-if-admin>
 
-<div class="flex flex-col gap-2 w-full flex-1">
-  @for (lesson of lessonsQuery.data()!.items; track lesson.id) {
-  <app-lesson-card [lesson]="lesson" />}
-</div>
-} }
+  <div class="flex flex-col gap-2 w-full flex-1">
+    @for (lesson of lessonsQuery.data()!.items; track lesson.id) {
+    <app-lesson-card [lesson]="lesson" />}
+  </div>
+  } }
+</app-mobile>

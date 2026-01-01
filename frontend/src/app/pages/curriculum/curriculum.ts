@@ -4,18 +4,26 @@ import { NgIcon, provideIcons } from "@ng-icons/core"
 import { phosphorArrowCounterClockwiseFill } from "@ng-icons/phosphor-icons/fill"
 import {
   phosphorPlus,
-  phosphorSpinnerGap
+  phosphorSpinnerGap,
 } from "@ng-icons/phosphor-icons/regular"
 import { injectQuery } from "@tanstack/angular-query-experimental"
 import { listLessonsOptions } from "#/api/generated/client"
 import { AppRoutes } from "#/app/app.routes"
-import { LessonCard } from "#/app/features/lessons/lesson-card/lesson-card"
-import { HlmButtonImports } from "#/libs/ui/button/src"
 import { ShowIfAdmin } from "#/app/features/auth/show-if-admin/show-if-admin"
+import { LessonCard } from "#/app/features/lessons/lesson-card/lesson-card"
+import { Mobile } from "#/app/layouts/mobile/mobile"
+import { HlmButtonImports } from "#/libs/ui/button/src"
 
 @Component({
   selector: "app-curriculum",
-  imports: [HlmButtonImports, NgIcon, LessonCard, RouterLink, ShowIfAdmin],
+  imports: [
+    HlmButtonImports,
+    NgIcon,
+    LessonCard,
+    RouterLink,
+    ShowIfAdmin,
+    Mobile,
+  ],
   templateUrl: "./curriculum.html",
   viewProviders: [
     provideIcons({
@@ -24,9 +32,6 @@ import { ShowIfAdmin } from "#/app/features/auth/show-if-admin/show-if-admin"
       phosphorPlus,
     }),
   ],
-  host: {
-    class: "layout-phone items-center justify-center gap-4 p-4",
-  },
 })
 export class Curriculum {
   protected lessonsQuery = injectQuery(listLessonsOptions)
