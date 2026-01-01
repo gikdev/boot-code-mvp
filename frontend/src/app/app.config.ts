@@ -6,6 +6,7 @@ import {
 import { provideRouter } from "@angular/router"
 import { client } from "@generated-api-client"
 import { provideHeyApiClient } from "@generated-api-client/client/client.gen"
+import { provideHotToastConfig } from "@ngneat/hot-toast"
 import {
   provideTanStackQuery,
   QueryClient,
@@ -22,5 +23,6 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withFetch()),
     provideHeyApiClient(client),
     provideTanStackQuery(queryClient, withDevtools()),
+    provideHotToastConfig(),
   ],
 }

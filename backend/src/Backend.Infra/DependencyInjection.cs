@@ -1,6 +1,7 @@
 ﻿using Backend.App.Common.Interfaces;
 using Backend.Infra.Common.Persistence;
 using Backend.Infra.Lessons.Persistence;
+using Backend.Infra.Others.Persistence;
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -23,6 +24,7 @@ public static class DependencyInjection {
 
     private static IServiceCollection AddRepos(this IServiceCollection services) {
         services.AddScoped<ILessonsRepo, LessonsRepo>();
+        services.AddScoped<IOthersRepo, OthersRepo>();
 
         return services;
     }

@@ -5,7 +5,7 @@ backend/wwwroot/*
 # ENV files
 .env
 .env.*
-!.env.(sample|example)
+!.env.example
 
 # IDEs
 .idea/

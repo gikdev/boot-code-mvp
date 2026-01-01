@@ -29,5 +29,6 @@ import { HlmCardImports } from "#/libs/ui/card/src"
 export class LessonCard {
   lesson = input.required<LessonSmallResponse>()
 
-  protected getLessonUrl = (lessonId: string) => AppRoutes.lesson(lessonId)
+  protected getLessonUrl = (lessonId: string) =>
+    AppRoutes.lessons.details(lessonId)
 }

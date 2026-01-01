@@ -3,6 +3,12 @@
 internal static class ApiEndpoints {
     private const string ApiBase = "api";
 
+    internal static class Others {
+        private const string Base = $"{ApiBase}/others";
+
+        internal const string CreateAdminSession = $"{Base}/admin-sessions";
+    }
+
     internal static class Lessons {
         private const string Base = $"{ApiBase}/lessons";
 

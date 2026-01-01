@@ -13,9 +13,9 @@ import { HlmButtonImports } from "#/libs/ui/button/src"
   viewProviders: [
     provideIcons({ phosphorArrowCounterClockwiseFill, phosphorSpinnerGap }),
   ],
-  templateUrl: "./lessons.html",
+  templateUrl: "./lesson-details.html",
 })
-export class Lessons {
+export class LessonDetails {
   lessonId = signal<string | null>(null)
   lessonQuery = injectQuery(() => ({
     ...getLessonByIdOptions({

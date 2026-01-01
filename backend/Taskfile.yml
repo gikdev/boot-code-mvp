@@ -1,8 +1,20 @@
 # https://taskfile.dev
 version: '3'
 
+dotenv: ['../.env']
+
 tasks:
-  default: dotnet run --project ./src/Backend.Api/
-  dev: dotnet watch run --project ./src/Backend.Api/
+  default:
+    cmds:
+      - dotnet run --project ./src/Backend.Api/
+    requires:
+      vars: [PASSCODE]
+
+  dev:
+    cmds:
+      - dotnet watch run --project ./src/Backend.Api/
+    requires:
+      vars: [PASSCODE]
+
   build: dotnet build --no-restore
   setup: dotnet restore ./Backend.slnx
