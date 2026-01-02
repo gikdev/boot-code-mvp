@@ -1,7 +1,8 @@
 import { Component, inject, type OnInit } from "@angular/core"
 import { Router } from "@angular/router"
-import { LocalStorageProvider } from "#/app/common/local-storage-provider.service"
+import { AppRoutes } from "#/app/app.routes"
 import { Constants } from "#/app/constants"
+import { OfflineStorageProvider } from "#/app/features/storage/offline-storage-provider"
 
 @Component({
   selector: "app-home",
@@ -9,18 +10,22 @@ import { Constants } from "#/app/constants"
 })
 export class Home implements OnInit {
   private readonly router = inject(Router)
-  private readonly localStorageProvider = inject(LocalStorageProvider)
+  private readonly localStorageProvider = inject(OfflineStorageProvider)
 
-  async ngOnInit() {
-    const result = await this.localStorageProvider.load<boolean>(
-      Constants.Storage.BootCodeMvpUserIsOld,
+  ngOnInit() {
+    const result = this.localStorageProvider.load<boolean>(
+      Constants.Storage.UserIsOld,
     )
 
-    if (result.isOk && result.value === true) {
-      this.router.navigate(["curriculum"])
+    if (!result.isOk) {
+      console.warn("Failed to load from storage:", result.error)
       return
     }
 
-    this.router.navigate(["intro"])
+    if (result.value === true) {
+      this.router.navigateByUrl(AppRoutes.curriculum())
+    } else {
+      this.router.navigateByUrl(AppRoutes.intro())
+    }
   }
 }

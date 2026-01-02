@@ -1,5 +1,6 @@
 export const Constants = {
   Storage: {
-    BootCodeMvpUserIsOld: "BootCodeMvp.User.IsOld",
+    UserIsOld: "BootCodeMvp.User.IsOld",
+    IsUserAdmin: "BootCodeMvp.User.IsAdmin",
   },
 }

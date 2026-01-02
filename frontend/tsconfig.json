@@ -18,7 +18,11 @@
       "@spartan-ng/helm/utils": ["./src/libs/ui/utils/src/index.ts"],
       "@generated-api-client": ["./src/api/generated/client/index.ts"],
       "@generated-api-client/*": ["./src/api/generated/client/*"],
-      "@spartan-ng/helm/card": ["./src/libs/ui/card/src/index.ts"]
+      "@spartan-ng/helm/card": ["./src/libs/ui/card/src/index.ts"],
+      "@spartan-ng/helm/field": ["./src/libs/ui/field/src/index.ts"],
+      "@spartan-ng/helm/label": ["./src/libs/ui/label/src/index.ts"],
+      "@spartan-ng/helm/separator": ["./src/libs/ui/separator/src/index.ts"],
+      "@spartan-ng/helm/input": ["./src/libs/ui/input/src/index.ts"]
     }
   },
   "angularCompilerOptions": {

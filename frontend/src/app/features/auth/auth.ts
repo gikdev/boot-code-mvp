@@ -1,11 +1,18 @@
 import { Injectable, inject, signal } from "@angular/core"
 import { createAdminSession } from "@generated-api-client"
 import { HotToastService } from "@ngneat/hot-toast"
+import { Constants } from "#/app/constants"
+import { OfflineStorageProvider } from "../storage/offline-storage-provider"
 
 @Injectable({ providedIn: "root" })
 export class Auth {
-  isAdmin = signal(false)
-  toast = inject(HotToastService)
+  private storage = inject(OfflineStorageProvider)
+  private toast = inject(HotToastService)
+  public isAdmin = signal(
+    this.storage
+      .load<boolean>(Constants.Storage.IsUserAdmin, true)
+      .unwrapOr(false),
+  )
 
   async login(code: string): Promise<boolean> {
     const { data, error } = await createAdminSession({
@@ -15,12 +22,24 @@ export class Auth {
     })
 
     if (error || !data) {
-      this.toast.error("یه مشکلی پیش آمد.")
+      this.toast.error("یه مشکل در ارتباط با سرور پیش آمد.")
       console.error({ error, data })
       return false
     }
 
     const isAdmin = data.isAdmin
+
+    const result = this.storage.save(
+      Constants.Storage.IsUserAdmin,
+      isAdmin,
+      true,
+    )
+
+    if (!result.isOk) {
+      this.toast.error("یه مشکلی در ذخیره‌سازی پیش آمد.")
+      console.error(result.error)
+      return false
+    }
 
     this.isAdmin.set(isAdmin)
 
@@ -46,5 +65,14 @@ export class Auth {
       })
   }
 
-  logout = () => this.isAdmin.set(false)
+  logout = () => {
+    this.isAdmin.set(false)
+
+    const result = this.storage.save(Constants.Storage.IsUserAdmin, false, true)
+
+    if (!result.isOk) {
+      this.toast.error("یه مشکلی در ذخیره‌سازی پیش آمد.")
+      console.error(result.error)
+    }
+  }
 }
