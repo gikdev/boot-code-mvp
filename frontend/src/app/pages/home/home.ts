@@ -17,12 +17,9 @@ export class Home implements OnInit {
       Constants.Storage.UserIsOld,
     )
 
-    if (!result.isOk) {
-      console.warn("Failed to load from storage:", result.error)
-      return
-    }
+    if (!result.isOk) console.warn("Failed to load from storage:", result.error)
 
-    if (result.value === true) {
+    if (result.isOk && result.value === true) {
       this.router.navigateByUrl(AppRoutes.curriculum())
     } else {
       this.router.navigateByUrl(AppRoutes.intro())
