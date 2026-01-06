@@ -19,8 +19,8 @@ internal class ChangeLessonsPositionsEndpoint : EndpointBase {
 
     private async Task<IResult> Handle(
         [FromServices] ILogger<ChangeLessonsPositionsEndpoint> logger,
-        [FromServices] ISender mediator,
-        [FromBody] ChangeLessonsPositionsRequest request
+        [FromServices] ISender                                 mediator,
+        [FromBody]     ChangeLessonsPositionsRequest           request
     ) {
         if (logger.IsEnabled(LogLevel.Debug))
             logger.LogDebug("PATCH {EndpointName} received with {@Request}.", Name, request);

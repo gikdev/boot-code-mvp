@@ -1,8 +1,6 @@
 using Backend.App.Common.Interfaces;
 using Backend.Domain.Lessons;
-
 using MediatR;
-
 using Microsoft.Extensions.Logging;
 
 namespace Backend.App.Lessons.Queries.GetLessonById;

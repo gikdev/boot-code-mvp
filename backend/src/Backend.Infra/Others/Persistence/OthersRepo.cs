@@ -1,5 +1,4 @@
 using Backend.App.Common.Interfaces;
-
 using Microsoft.Extensions.Configuration;
 
 namespace Backend.Infra.Others.Persistence;

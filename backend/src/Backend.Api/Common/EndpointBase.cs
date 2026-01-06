@@ -4,7 +4,7 @@ namespace Backend.Api.Common;
 
 internal abstract class EndpointBase {
     internal abstract string Name { get; }
-    internal abstract void MapEndpoint(IEndpointRouteBuilder app);
+    internal abstract void   MapEndpoint(IEndpointRouteBuilder app);
 
     protected static IResult Problem(List<Error> errors) {
         if (errors.Count == 0)
@@ -17,10 +17,10 @@ internal abstract class EndpointBase {
 
     protected static IResult Problem(Error error) {
         var statusCode = error.Type switch {
-            ErrorType.Conflict => StatusCodes.Status409Conflict,
+            ErrorType.Conflict   => StatusCodes.Status409Conflict,
             ErrorType.Validation => StatusCodes.Status400BadRequest,
-            ErrorType.NotFound => StatusCodes.Status404NotFound,
-            _ => StatusCodes.Status500InternalServerError
+            ErrorType.NotFound   => StatusCodes.Status404NotFound,
+            _                    => StatusCodes.Status500InternalServerError
         };
 
         return TypedResults.Problem(

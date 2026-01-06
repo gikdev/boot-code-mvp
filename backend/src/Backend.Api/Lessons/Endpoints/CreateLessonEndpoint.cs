@@ -1,10 +1,7 @@
 using Backend.Api.Common;
 using Backend.Contracts.Lessons;
-
 using FluentValidation;
-
 using MediatR;
-
 using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Api.Lessons.Endpoints;

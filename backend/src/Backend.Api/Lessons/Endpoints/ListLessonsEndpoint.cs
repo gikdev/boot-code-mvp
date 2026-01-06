@@ -1,9 +1,7 @@
 using Backend.Api.Common;
 using Backend.App.Lessons.Queries.ListLessons;
 using Backend.Contracts.Lessons;
-
 using MediatR;
-
 using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Api.Lessons.Endpoints;

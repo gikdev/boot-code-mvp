@@ -1,7 +1,5 @@
 using Backend.App.Common.Behaviors;
-
 using FluentValidation;
-
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Backend.App;

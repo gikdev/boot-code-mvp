@@ -1,8 +1,6 @@
 using Backend.Api.Common;
 using Backend.App.Lessons.Commands.DeleteLessonById;
-
 using MediatR;
-
 using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Api.Lessons.Endpoints;

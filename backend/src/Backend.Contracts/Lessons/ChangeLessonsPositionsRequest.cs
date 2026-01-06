@@ -5,6 +5,6 @@ public record ChangeLessonsPositionsRequest {
 }
 
 public record ChangeLessonPositionRequest {
-    public required Guid LessonId { get; init; }
-    public required int NewPosition { get; init; }
+    public required Guid LessonId    { get; init; }
+    public required int  NewPosition { get; init; }
 }

@@ -1,9 +1,6 @@
 using Backend.App.Common.Interfaces;
-
 using ErrorOr;
-
 using MediatR;
-
 using Optional;
 
 namespace Backend.App.Lessons.Commands.UpdateLessonItselfById;

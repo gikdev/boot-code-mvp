@@ -1,7 +1,5 @@
 using Backend.Api.Common;
 using Backend.Contracts.Others;
-
-using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,10 +19,10 @@ internal class CreateAdminSessionEndpoint : EndpointBase {
     }
 
     private async Task<IResult> Handle(
-        [FromServices] ILogger<CreateAdminSessionEndpoint>   logger,
-        [FromServices] ISender                               mediator,
+        [FromServices] ILogger<CreateAdminSessionEndpoint> logger,
+        [FromServices] ISender                             mediator,
         // [FromServices] IValidator<CreateAdminSessionRequest> validator,
-        [FromBody]     CreateAdminSessionRequest             request
+        [FromBody] CreateAdminSessionRequest request
     ) {
         // var validationResult = await validator.ValidateAsync(request);
         // if (!validationResult.IsValid) return Results.BadRequest(validationResult.Errors);

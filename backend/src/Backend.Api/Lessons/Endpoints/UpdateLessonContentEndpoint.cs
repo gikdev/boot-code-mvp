@@ -19,9 +19,9 @@ internal class UpdateLessonContentByIdEndpoint : EndpointBase {
 
     private async Task<IResult> Handle(
         [FromServices] ILogger<UpdateLessonContentByIdEndpoint> logger,
-        [FromServices] ISender mediator,
-        [FromRoute] Guid id,
-        [FromBody] UpdateLessonContentByIdRequest request
+        [FromServices] ISender                                  mediator,
+        [FromRoute]    Guid                                     id,
+        [FromBody]     UpdateLessonContentByIdRequest           request
     ) {
         if (logger.IsEnabled(LogLevel.Debug))
             logger.LogDebug("PUT {EndpointName} #{LessonId} received with {@Request}.", Name, id, request);
@@ -30,7 +30,10 @@ internal class UpdateLessonContentByIdEndpoint : EndpointBase {
 
         if (result.IsError) {
             var errors = result.Errors;
-            logger.LogInformation("PUT {EndpointName} #{LessonId} failed with {ErrorCount} errors.", Name, id, errors.Count);
+
+            logger.LogInformation("PUT {EndpointName} #{LessonId} failed with {ErrorCount} errors.", Name, id,
+                errors.Count);
+
             return Problem(errors);
         }
 

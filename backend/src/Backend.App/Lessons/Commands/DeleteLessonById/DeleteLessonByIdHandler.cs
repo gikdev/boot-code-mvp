@@ -1,9 +1,6 @@
 using Backend.App.Common.Interfaces;
-
 using ErrorOr;
-
 using MediatR;
-
 using Microsoft.Extensions.Logging;
 
 namespace Backend.App.Lessons.Commands.DeleteLessonById;

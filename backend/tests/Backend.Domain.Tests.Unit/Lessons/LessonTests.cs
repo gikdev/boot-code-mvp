@@ -1,5 +1,4 @@
 using Backend.Domain.Lessons;
-
 using FluentAssertions;
 
 namespace Backend.Domain.Tests.Unit.Lessons;

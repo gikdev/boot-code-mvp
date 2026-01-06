@@ -1,11 +1,8 @@
 using Backend.Api.Common;
 using Backend.App.Lessons.Queries.GetLessonById;
 using Backend.Contracts.Lessons;
-
 using ErrorOr;
-
 using MediatR;
-
 using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Api.Lessons.Endpoints;

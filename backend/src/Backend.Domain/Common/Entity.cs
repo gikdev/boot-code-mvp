@@ -5,8 +5,7 @@ public abstract class Entity {
         Id = id;
     }
 
-    protected Entity() {
-    }
+    protected Entity() { }
 
     public Guid Id { get; }
 

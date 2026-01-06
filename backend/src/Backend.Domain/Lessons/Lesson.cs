@@ -1,7 +1,5 @@
 using Backend.Domain.Common;
-
 using ErrorOr;
-
 using Optional;
 using Optional.Unsafe;
 

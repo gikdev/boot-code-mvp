@@ -39,10 +39,12 @@ internal static class Setup {
         if (app.Environment.IsDevelopment()) app.UseCors("DevCorsPolicy");
 
         app.MapApiEndpoints<Program>();
+
         app.MapGet("/", () => Results.Redirect("/scalar"))
             .ExcludeFromDescription();
 
         app.MapOpenApi();
+
         app.MapScalarApiReference(o => o
             .WithTitle("BootCode MVP API")
             // .WithClassicLayout()

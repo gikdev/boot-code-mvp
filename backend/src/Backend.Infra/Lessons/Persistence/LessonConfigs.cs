@@ -1,6 +1,5 @@
 using Backend.Domain.Lessons;
 using Backend.Infra.Common.Persistence;
-
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
