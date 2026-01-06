@@ -1,8 +1,11 @@
 import { Component, inject, signal } from "@angular/core"
-import { ActivatedRoute } from "@angular/router"
+import { ActivatedRoute, RouterLink } from "@angular/router"
 import { NgIcon, provideIcons } from "@ng-icons/core"
 import { phosphorArrowCounterClockwiseFill } from "@ng-icons/phosphor-icons/fill"
-import { phosphorSpinnerGap } from "@ng-icons/phosphor-icons/regular"
+import {
+  phosphorCaretRight,
+  phosphorSpinnerGap,
+} from "@ng-icons/phosphor-icons/regular"
 import { injectQuery } from "@tanstack/angular-query-experimental"
 import { getLessonByIdOptions } from "#/api/generated/client"
 import { Mobile } from "#/app/layouts/mobile/mobile"
@@ -10,9 +13,13 @@ import { HlmButtonImports } from "#/libs/ui/button/src"
 
 @Component({
   selector: "app-lesson",
-  imports: [HlmButtonImports, NgIcon, Mobile],
+  imports: [HlmButtonImports, NgIcon, Mobile, RouterLink],
   viewProviders: [
-    provideIcons({ phosphorArrowCounterClockwiseFill, phosphorSpinnerGap }),
+    provideIcons({
+      phosphorArrowCounterClockwiseFill,
+      phosphorSpinnerGap,
+      phosphorCaretRight,
+    }),
   ],
   templateUrl: "./lesson-details.html",
 })
@@ -42,6 +49,17 @@ export class LessonDetails {
       this.lessonId.set(lessonId)
     })
   }
+
+  protected isPopulatedString = (value: string | null): value is string =>
+    value != null && value.trim().length > 0
+
+  protected getFileAndMimeType = (fileAndMimeType: string) => {
+    const [file, mimeType] = fileAndMimeType.split(",")
+    return { file, mimeType }
+  }
+
+  protected getFullFileUrl = (fileAndMimeType: string) =>
+    `https://wd-bahrami.storage.iran.liara.space/boot-code/${this.getFileAndMimeType(fileAndMimeType).file}`
 }
 
 function isStringWithContent(value: unknown): value is string {

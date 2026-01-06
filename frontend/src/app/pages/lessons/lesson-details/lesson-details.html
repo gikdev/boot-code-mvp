@@ -13,10 +13,33 @@
       <ng-icon name="phosphorArrowCounterClockwiseFill" />
     </button>
   </div>
-  } @case ("success") {<!-- Done this so BiomeJS wouldn't error. -->
-  <h1
-    class="text-3xl font-black text-center"
-    [textContent]="lessonQuery.data()!.title"
-  ></h1>
-  } }
+  } @case ("success") { @let lesson = lessonQuery.data()!;
+
+  <div class="flex gap-2 items-center flex-wrap">
+    <a hlmBtn variant="ghost" size="icon-lg" routerLink="/">
+      <ng-icon name="phosphorCaretRight" size="24" />
+    </a>
+
+    <!-- Did this so BiomeJS wouldn't error. -->
+    <h1 class="text-xl font-bold text-start" [textContent]="lesson.title"></h1>
+  </div>
+  @if (this.isPopulatedString(lesson.videoUrl)) {
+  <video controls>
+    <source
+      [src]="this.getFullFileUrl(lesson.videoUrl)"
+      [type]="this.getFileAndMimeType(lesson.videoUrl).mimeType"
+    />
+    <p>مرورگر شما از فایل‌های ویدیویی پشتیبانی نمی‌کنه...</p>
+  </video>
+  } @if (this.isPopulatedString(lesson.audioUrl)) {
+  <audio controls>
+    <source
+      [src]="this.getFullFileUrl(lesson.audioUrl)"
+      [type]="this.getFileAndMimeType(lesson.audioUrl).mimeType"
+    />
+    <p>مرورگر شما از فایل‌های صوتی پشتیبانی نمی‌کنه...</p>
+  </audio>
+  } @if (this.isPopulatedString(lesson.textContent)) {
+
+  } } }
 </app-mobile>
