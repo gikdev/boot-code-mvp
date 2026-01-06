@@ -29,7 +29,8 @@
 
   <div class="flex flex-col gap-2 w-full flex-1">
     @for (lesson of lessonsQuery.data()!.items; track lesson.id) {
-    <app-lesson-card [lesson]="lesson" />}
+    <app-lesson-card [lesson]="lesson" />} @empty {
+    <p class="text-center">فعلا درسی نداریم.</p>}
   </div>
   } }
 </app-mobile>
