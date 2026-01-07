@@ -14,8 +14,14 @@ internal class LessonsRepo(MainDbCtx db) : ILessonsRepo {
         return await db.Lessons.FirstOrDefaultAsync(l => l.Id == id);
     }
 
-    public async Task<List<Lesson>> ListAsync() {
-        return await db.Lessons.ToListAsync();
+    public async Task<List<Lesson>> ListAsync(bool sortByPosition = false) {
+        var query = db.Lessons.AsQueryable();
+
+        if (sortByPosition) {
+            query = query.OrderBy(l => l.Position);
+        }
+
+        return await query.ToListAsync();
     }
 
     public async Task<List<Lesson>> ListByIdsAsync(List<Guid> ids) {

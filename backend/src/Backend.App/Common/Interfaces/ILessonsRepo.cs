@@ -3,7 +3,7 @@ using Backend.Domain.Lessons;
 namespace Backend.App.Common.Interfaces;
 
 public interface ILessonsRepo {
-    Task<List<Lesson>> ListAsync();
+    Task<List<Lesson>> ListAsync(bool               sortByPosition = false);
     Task<List<Lesson>> ListByIdsAsync(List<Guid>    ids);
     Task<Lesson?>      GetOneByIdAsync(Guid         id);
     Task               AddAsync(Lesson              lesson);

@@ -19,6 +19,8 @@ import { HlmCardImports } from "#/libs/ui/card/src"
       [routerLink]="getLessonUrl(lesson().id)"
       class="flex items-center gap-2 p-4 cursor-pointer hover:bg-accent flex-row w-full"
     >
+      <ng-content />
+
       <ng-icon name="phosphorNotebook" size="24" />
       <h3 hlmCardTitle class="flex-1">{{ lesson().title }}</h3>
 

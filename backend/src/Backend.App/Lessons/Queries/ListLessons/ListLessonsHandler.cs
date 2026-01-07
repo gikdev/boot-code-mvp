@@ -12,7 +12,7 @@ internal class ListLessonsHandler(
     public async Task<List<Lesson>> Handle(ListLessonsQuery request, CancellationToken cancellationToken) {
         logger.LogDebug("Getting lessons list.");
 
-        var lessonList = await lessonsRepo.ListAsync();
+        var lessonList = await lessonsRepo.ListAsync(sortByPosition: true);
 
         return lessonList;
     }

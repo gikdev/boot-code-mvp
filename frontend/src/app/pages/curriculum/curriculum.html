@@ -19,18 +19,57 @@
     <br />
     <span>بوت‌کمپ 👨🏻‍💻 کدنویسی</span>
   </h1>
+  @let sortingState = sorting();
 
-  <app-show-if-admin [showFallback]="false">
+  <app-show-if-admin [showFallback]="false" class="flex gap-1">
+    @if(sortingState.state === "IDLE") {
     <a [routerLink]="getNewLessonPage()" hlmBtn variant="default">
       <span>ایجاد درس</span>
-      <ng-icon name="phosphorPlus" />
+      <ng-icon name="phosphorPlus" size="20" />
     </a>
-  </app-show-if-admin>
+    <button hlmBtn variant="outline" (click)="startSorting()">
+      <span>مرتب کن</span>
+      <ng-icon name="phosphorHandGrabbing" size="20" />
+    </button>
+    } @if(sortingState.state === "IS_BEING_SORTED") {
+    <button
+      hlmBtn
+      variant="destructive"
+      (click)="endSorting()"
+      [disabled]="changePositionsMutation.isPending()"
+    >
+      <span>کنسل</span>
+      <ng-icon name="phosphorProhibit" size="20" />
+    </button>
 
+    <button
+      hlmBtn
+      variant="default"
+      (click)="saveSorting()"
+      [disabled]="changePositionsMutation.isPending()"
+    >
+      <span>ثبت</span>
+      <ng-icon name="phosphorCheck" size="20" />
+    </button>
+    }
+  </app-show-if-admin>
+  @if(sortingState.state === "IS_BEING_SORTED") {
+  <div
+    class="flex flex-col gap-2 w-full flex-1"
+    cdkDropList
+    (cdkDropListDropped)="drop($event)"
+  >
+    @for (lesson of sortingState.items; track lesson.id) {
+    <app-lesson-card [lesson]="lesson" cdkDrag>
+      <ng-icon name="phosphorDotsSixVertical" size="24" />
+    </app-lesson-card>
+    } @empty {<p class="text-center">فعلا درسی نداریم.</p>}
+  </div>
+  } @if (sortingState.state === "IDLE") {
   <div class="flex flex-col gap-2 w-full flex-1">
     @for (lesson of lessonsQuery.data()!.items; track lesson.id) {
     <app-lesson-card [lesson]="lesson" />} @empty {
     <p class="text-center">فعلا درسی نداریم.</p>}
   </div>
-  } }
+  } } }
 </app-mobile>
