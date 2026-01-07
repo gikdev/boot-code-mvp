@@ -21,7 +21,21 @@
     </a>
 
     <!-- Did this so BiomeJS wouldn't error. -->
-    <h1 class="text-xl font-bold text-start" [textContent]="lesson.title"></h1>
+    <h1 class="text-xl font-bold text-start me-auto" [textContent]="lesson.title"></h1>
+
+    <app-show-if-admin [showFallback]="false" class="contents">
+      <button hlmBtn variant="ghost" size="icon-lg" (click)="1+2" title="ویرایش درس">
+        <ng-icon name="phosphorPencilSimpleLine" size="24" />
+      </button>
+
+      <button hlmBtn variant="ghost" size="icon-lg" (click)="1+2" title="ویرایش محتوای درس">
+        <ng-icon name="phosphorNotePencil" size="24" />
+      </button>
+
+      <button hlmBtn variant="ghost" size="icon-lg" (click)="1+2" title="حذف درس">
+        <ng-icon name="phosphorTrash" size="24" />
+      </button>
+    </app-show-if-admin>
   </div>
   @if (this.isPopulatedString(lesson.videoUrl)) {
   <video controls>
@@ -39,7 +53,5 @@
     />
     <p>مرورگر شما از فایل‌های صوتی پشتیبانی نمی‌کنه...</p>
   </audio>
-  } @if (this.isPopulatedString(lesson.textContent)) {
-
-  } } }
+  } @if (this.isPopulatedString(lesson.textContent)) { } } }
 </app-mobile>

@@ -4,21 +4,28 @@ import { NgIcon, provideIcons } from "@ng-icons/core"
 import { phosphorArrowCounterClockwiseFill } from "@ng-icons/phosphor-icons/fill"
 import {
   phosphorCaretRight,
+  phosphorNotePencil,
+  phosphorPencilSimpleLine,
   phosphorSpinnerGap,
+  phosphorTrash,
 } from "@ng-icons/phosphor-icons/regular"
 import { injectQuery } from "@tanstack/angular-query-experimental"
 import { getLessonByIdOptions } from "#/api/generated/client"
+import { ShowIfAdmin } from "#/app/features/auth/show-if-admin/show-if-admin"
 import { Mobile } from "#/app/layouts/mobile/mobile"
 import { HlmButtonImports } from "#/libs/ui/button/src"
 
 @Component({
   selector: "app-lesson",
-  imports: [HlmButtonImports, NgIcon, Mobile, RouterLink],
+  imports: [HlmButtonImports, NgIcon, Mobile, RouterLink, ShowIfAdmin],
   viewProviders: [
     provideIcons({
       phosphorArrowCounterClockwiseFill,
       phosphorSpinnerGap,
+      phosphorPencilSimpleLine,
+      phosphorNotePencil,
       phosphorCaretRight,
+      phosphorTrash,
     }),
   ],
   templateUrl: "./lesson-details.html",
