@@ -1,5 +1,5 @@
 import { Component, inject, signal } from "@angular/core"
-import { ActivatedRoute, RouterLink } from "@angular/router"
+import { ActivatedRoute, Router, RouterLink } from "@angular/router"
 import { NgIcon, provideIcons } from "@ng-icons/core"
 import { phosphorArrowCounterClockwiseFill } from "@ng-icons/phosphor-icons/fill"
 import {
@@ -9,8 +9,16 @@ import {
   phosphorSpinnerGap,
   phosphorTrash,
 } from "@ng-icons/phosphor-icons/regular"
-import { injectQuery } from "@tanstack/angular-query-experimental"
-import { getLessonByIdOptions } from "#/api/generated/client"
+import { HotToastService } from "@ngneat/hot-toast"
+import {
+  injectMutation,
+  injectQuery,
+} from "@tanstack/angular-query-experimental"
+import {
+  deleteLessonByIdMutation,
+  getLessonByIdOptions,
+} from "#/api/generated/client"
+import { AppRoutes } from "#/app/app.routes"
 import { ShowIfAdmin } from "#/app/features/auth/show-if-admin/show-if-admin"
 import { Mobile } from "#/app/layouts/mobile/mobile"
 import { HlmButtonImports } from "#/libs/ui/button/src"
@@ -32,6 +40,7 @@ import { HlmButtonImports } from "#/libs/ui/button/src"
 })
 export class LessonDetails {
   lessonId = signal<string | null>(null)
+  removeLessonMutation = injectMutation(deleteLessonByIdMutation)
   lessonQuery = injectQuery(() => ({
     ...getLessonByIdOptions({
       path: {
@@ -43,6 +52,8 @@ export class LessonDetails {
   }))
 
   private readonly activatedRoute = inject(ActivatedRoute)
+  private readonly toast = inject(HotToastService)
+  private readonly router = inject(Router)
 
   constructor() {
     this.handleParams()
@@ -57,8 +68,29 @@ export class LessonDetails {
     })
   }
 
+  protected removeLesson() {
+    const lessonId = this.lessonId()
+    const isSure = window.confirm("Sure?")
+    if (isSure === false || typeof lessonId !== "string") return
+
+    this.removeLessonMutation.mutate(
+      {
+        path: { id: lessonId },
+      },
+      {
+        onSuccess: () => {
+          this.toast.success("با موفقیت انجام شد.")
+          this.router.navigate([AppRoutes.curriculum()])
+        },
+        onError: error => {
+          this.toast.error(`یه مشکلی پیش آمد: ${error.message}`)
+        },
+      },
+    )
+  }
+
   protected isPopulatedString = (value: string | null): value is string =>
-    value != null && value.trim().length > 0
+    typeof value === "string" && value.trim().length > 0
 
   protected getFileAndMimeType = (fileAndMimeType: string) => {
     const [file, mimeType] = fileAndMimeType.split(",")
