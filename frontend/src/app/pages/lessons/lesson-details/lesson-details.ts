@@ -14,6 +14,7 @@ import {
   injectMutation,
   injectQuery,
 } from "@tanstack/angular-query-experimental"
+import { MarkdownComponent } from "ngx-markdown"
 import {
   deleteLessonByIdMutation,
   getLessonByIdOptions,
@@ -26,7 +27,14 @@ import { isStringWithContent } from "#/libs/utils"
 
 @Component({
   selector: "app-lesson",
-  imports: [HlmButtonImports, NgIcon, Mobile, RouterLink, ShowIfAdmin],
+  imports: [
+    HlmButtonImports,
+    NgIcon,
+    Mobile,
+    RouterLink,
+    ShowIfAdmin,
+    MarkdownComponent,
+  ],
   viewProviders: [
     provideIcons({
       phosphorArrowCounterClockwiseFill,
@@ -105,6 +113,15 @@ export class LessonDetails {
     const lessonId = this.lessonId()
 
     if (isStringWithContent(lessonId)) return AppRoutes.lessons.edit(lessonId)
+
+    return AppRoutes.home()
+  }
+
+  protected getEditContentPageUrl = () => {
+    const lessonId = this.lessonId()
+
+    if (isStringWithContent(lessonId))
+      return AppRoutes.lessons.editContent(lessonId)
 
     return AppRoutes.home()
   }

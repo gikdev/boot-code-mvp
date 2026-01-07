@@ -37,15 +37,15 @@
         <ng-icon name="phosphorPencilSimpleLine" size="24" />
       </a>
 
-      <button
+      <a
         hlmBtn
         variant="ghost"
         size="icon-lg"
-        (click)="1+2"
+        [routerLink]="getEditContentPageUrl()"
         title="ویرایش محتوای درس"
       >
         <ng-icon name="phosphorNotePencil" size="24" />
-      </button>
+      </a>
 
       <button
         hlmBtn
@@ -59,21 +59,30 @@
       </button>
     </app-show-if-admin>
   </div>
-  @if (this.isPopulatedString(lesson.videoUrl)) {
-  <video controls>
+  @if (this.isPopulatedString(lesson.imageUrl)) {
+  <picture class="w-full block">
     <source
-      [src]="this.getFullFileUrl(lesson.videoUrl)"
-      [type]="this.getFileAndMimeType(lesson.videoUrl).mimeType"
+      [srcset]="this.getFullFileUrl(lesson.imageUrl)"
+      [type]="this.getFileAndMimeType(lesson.imageUrl).mimeType"
     />
-    <p>مرورگر شما از فایل‌های ویدیویی پشتیبانی نمی‌کنه...</p>
-  </video>
+    <img [src]="this.getFullFileUrl(lesson.imageUrl)" />
+  </picture>
   } @if (this.isPopulatedString(lesson.audioUrl)) {
-  <audio controls>
+  <audio controls class="w-full block">
     <source
       [src]="this.getFullFileUrl(lesson.audioUrl)"
       [type]="this.getFileAndMimeType(lesson.audioUrl).mimeType"
     />
     <p>مرورگر شما از فایل‌های صوتی پشتیبانی نمی‌کنه...</p>
   </audio>
-  } @if (this.isPopulatedString(lesson.textContent)) { } } }
+  } @if (this.isPopulatedString(lesson.videoUrl)) {
+  <video controls class="w-full block">
+    <source
+      [src]="this.getFullFileUrl(lesson.videoUrl)"
+      [type]="this.getFileAndMimeType(lesson.videoUrl).mimeType"
+    />
+    <p>مرورگر شما از فایل‌های ویدیویی پشتیبانی نمی‌کنه...</p>
+  </video>
+  } @if (this.isPopulatedString(lesson.textContent)) {
+  <markdown class="prose" [data]="lesson.textContent"></markdown>} } }
 </app-mobile>

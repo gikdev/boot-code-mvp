@@ -22,7 +22,8 @@
       "@spartan-ng/helm/field": ["./src/libs/ui/field/src/index.ts"],
       "@spartan-ng/helm/label": ["./src/libs/ui/label/src/index.ts"],
       "@spartan-ng/helm/separator": ["./src/libs/ui/separator/src/index.ts"],
-      "@spartan-ng/helm/input": ["./src/libs/ui/input/src/index.ts"]
+      "@spartan-ng/helm/input": ["./src/libs/ui/input/src/index.ts"],
+      "@spartan-ng/helm/textarea": ["./src/libs/ui/textarea/src/index.ts"]
     }
   },
   "angularCompilerOptions": {

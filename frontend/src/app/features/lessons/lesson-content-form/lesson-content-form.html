@@ -1,0 +1,66 @@
+<form [formGroup]="lessonContent" (ngSubmit)="onSubmit()">
+  <div hlmFieldGroup>
+    <fieldset hlmFieldSet>
+      <legend hlmFieldLegend>محتوای درس</legend>
+
+      <div hlmFieldGroup>
+        <div hlmField>
+          <label hlmFieldLabel for="lesson-image">عکس درس</label>
+          <input
+            dir="ltr"
+            hlmInput
+            placeholder="flower.jpg,image/jpeg"
+            class="font-mono"
+            id="lesson-image"
+            formControlName="imageUrl"
+          />
+        </div>
+
+        <div hlmField>
+          <label hlmFieldLabel for="lesson-audio">صوت درس</label>
+          <input
+            dir="ltr"
+            hlmInput
+            placeholder="sth.mp3,audio/mpeg"
+            class="font-mono"
+            id="lesson-audio"
+            formControlName="audioUrl"
+          />
+        </div>
+
+        <div hlmField>
+          <label hlmFieldLabel for="lesson-video">ویدیوی درس</label>
+          <input
+            dir="ltr"
+            hlmInput
+            placeholder="sth.mp4,video/mp4"
+            class="font-mono"
+            id="lesson-video"
+            formControlName="videoUrl"
+          />
+        </div>
+
+        <div hlmField>
+          <label hlmFieldLabel for="lesson-content">محتوای درس</label>
+          <textarea
+            hlmTextarea
+            placeholder="..."
+            id="lesson-content"
+            formControlName="textContent"
+          ></textarea>
+        </div>
+      </div>
+    </fieldset>
+
+    <div hlmField orientation="horizontal">
+      <a hlmBtn variant="outline" [routerLink]="goBackPath()">
+        <ng-icon name="phosphorArrowRight" />
+        <span>بازگشت</span>
+      </a>
+
+      <button hlmBtn variant="default" class="flex-1" type="submit">
+        ذخیره
+      </button>
+    </div>
+  </div>
+</form>
