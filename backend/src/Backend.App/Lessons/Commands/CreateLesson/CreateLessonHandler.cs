@@ -12,12 +12,7 @@ internal class CreateLessonHandler(
 ) : IRequestHandler<CreateLessonCommand, ErrorOr<Lesson>> {
     public async Task<ErrorOr<Lesson>> Handle(CreateLessonCommand req, CancellationToken ct) {
         var result = Lesson.Create(
-            req.Title,
-            req.Position ?? 1,
-            req.TextContent,
-            req.AudioUrl,
-            req.VideoUrl,
-            req.Resources
+            req.Title
         );
 
         if (result.IsError) {

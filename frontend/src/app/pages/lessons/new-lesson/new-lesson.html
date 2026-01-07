@@ -1,5 +1,5 @@
 <app-mobile>
   <app-show-if-admin [showFallback]="true">
-    <app-lesson-form />
+    <app-lesson-form mode="CREATE" (submitForm)="createLesson($event)" />
   </app-show-if-admin>
 </app-mobile>

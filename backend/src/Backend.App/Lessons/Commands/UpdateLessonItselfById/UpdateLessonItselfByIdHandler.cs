@@ -13,8 +13,7 @@ internal class UpdateLessonItselfByIdHandler(
         if (lesson is null) return Error.NotFound("درس پیدا نشد.");
 
         lesson.Update(
-            Option.Some(req.Title),
-            Option.Some(req.Position)
+            title: Option.Some(req.Title)
         );
 
         await lessonsRepo.UpdateAsync(lesson);

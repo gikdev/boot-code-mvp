@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Backend.Infra.Migrations
 {
     [DbContext(typeof(MainDbCtx))]
-    [Migration("20251224150320_Initial")]
+    [Migration("20260107091442_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -27,6 +27,9 @@ namespace Backend.Infra.Migrations
 
                     b.Property<string>("AudioUrl")
                         .HasMaxLength(256)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ImageUrl")
                         .HasColumnType("TEXT");
 
                     b.Property<int>("Position")

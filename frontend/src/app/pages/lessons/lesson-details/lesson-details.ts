@@ -22,6 +22,7 @@ import { AppRoutes } from "#/app/app.routes"
 import { ShowIfAdmin } from "#/app/features/auth/show-if-admin/show-if-admin"
 import { Mobile } from "#/app/layouts/mobile/mobile"
 import { HlmButtonImports } from "#/libs/ui/button/src"
+import { isStringWithContent } from "#/libs/utils"
 
 @Component({
   selector: "app-lesson",
@@ -99,8 +100,12 @@ export class LessonDetails {
 
   protected getFullFileUrl = (fileAndMimeType: string) =>
     `https://wd-bahrami.storage.iran.liara.space/boot-code/${this.getFileAndMimeType(fileAndMimeType).file}`
-}
 
-function isStringWithContent(value: unknown): value is string {
-  return typeof value === "string" && value.trim().length > 0
+  protected getEditPageUrl = () => {
+    const lessonId = this.lessonId()
+
+    if (isStringWithContent(lessonId)) return AppRoutes.lessons.edit(lessonId)
+
+    return AppRoutes.home()
+  }
 }

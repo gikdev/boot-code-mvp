@@ -1,4 +1,4 @@
-import { Component, inject } from "@angular/core"
+import { Component, effect, inject, input, output } from "@angular/core"
 import { FormBuilder, ReactiveFormsModule, Validators } from "@angular/forms"
 import { RouterLink } from "@angular/router"
 import { NgIcon, provideIcons } from "@ng-icons/core"
@@ -7,13 +7,9 @@ import { HotToastService } from "@ngneat/hot-toast"
 import { HlmButtonImports } from "@spartan-ng/helm/button"
 import { HlmFieldImports } from "@spartan-ng/helm/field"
 import { HlmInputImports } from "@spartan-ng/helm/input"
-import { injectMutation } from "@tanstack/angular-query-experimental"
 import * as v from "valibot"
-import {
-  createLessonMutation,
-  type LessonSmallResponse,
-} from "#/api/generated/client"
 import { AppRoutes } from "#/app/app.routes"
+import { type LessonFormValue, LessonSchema } from "./types"
 
 @Component({
   selector: "app-lesson-form",
@@ -30,8 +26,7 @@ import { AppRoutes } from "#/app/app.routes"
     <form [formGroup]="lesson" (ngSubmit)="onSubmit()">
 			<div hlmFieldGroup>
 				<fieldset hlmFieldSet>
-					<legend hlmFieldLegend>درس جدید</legend>
-					<p hlmFieldDescription>یه درس جدید بساز!</p>
+					<legend hlmFieldLegend>{{ this.mode() === "CREATE" ? "درس جدید" : "ویرایش درس" }}</legend>
 
 					<div hlmFieldGroup>
 						<div hlmField>
@@ -47,7 +42,7 @@ import { AppRoutes } from "#/app/app.routes"
             <span>بازگشت</span>
           </a>
 
-					<button hlmBtn variant="default" class="flex-1" type="submit">ایجاد</button>
+					<button hlmBtn variant="default" class="flex-1" type="submit">ذخیره</button>
 				</div>
 			</div>
 		</form>
@@ -56,7 +51,17 @@ import { AppRoutes } from "#/app/app.routes"
 export class LessonForm {
   private toast = inject(HotToastService)
   private formBuilder = inject(FormBuilder)
-  protected createLessonMutation = injectMutation(createLessonMutation)
+  public mode = input.required<"CREATE" | "EDIT">()
+  public initialValue = input<LessonFormValue | null>(null)
+  public submitForm = output<LessonFormValue>()
+
+  constructor() {
+    effect(() => {
+      const value = this.initialValue()
+      if (!value) return
+      this.lesson.patchValue(value)
+    })
+  }
 
   protected lesson = this.formBuilder.group({
     title: ["", Validators.required],
@@ -75,25 +80,6 @@ export class LessonForm {
       return
     }
 
-    const body = result.output
-
-    const onSuccess = (_data: LessonSmallResponse) => {
-      this.toast.success("با موفقیت انجام شد!")
-      this.lesson.reset()
-    }
-
-    const onError = (error: Error) => {
-      this.toast.error(`یه مشکلی پیش آمده - ${error.message}`)
-      console.error(error)
-    }
-
-    this.createLessonMutation.mutate({ body }, { onSuccess, onError })
+    this.submitForm.emit(result.output)
   }
 }
-
-const LessonSchema = v.object({
-  title: v.pipe(
-    v.string("عنوان باید از نوع رشته باشد"),
-    v.nonEmpty("مقدار عنوان نباید خالی باشد"),
-  ),
-})

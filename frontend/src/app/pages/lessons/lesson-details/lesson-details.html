@@ -27,15 +27,15 @@
     ></h1>
 
     <app-show-if-admin [showFallback]="false" class="contents">
-      <button
+      <a
         hlmBtn
         variant="ghost"
         size="icon-lg"
-        (click)="1+2"
+        [routerLink]="getEditPageUrl()"
         title="ویرایش درس"
       >
         <ng-icon name="phosphorPencilSimpleLine" size="24" />
-      </button>
+      </a>
 
       <button
         hlmBtn

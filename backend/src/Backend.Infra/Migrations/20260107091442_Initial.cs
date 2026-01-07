@@ -20,6 +20,7 @@ namespace Backend.Infra.Migrations
                     Position = table.Column<int>(type: "INTEGER", nullable: false),
                     TextContent = table.Column<string>(type: "TEXT", nullable: true),
                     AudioUrl = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
+                    ImageUrl = table.Column<string>(type: "TEXT", nullable: true),
                     VideoUrl = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true)
                 },
                 constraints: table =>
