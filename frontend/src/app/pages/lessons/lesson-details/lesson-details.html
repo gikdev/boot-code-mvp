@@ -60,8 +60,8 @@
     </app-show-if-admin>
   </div>
   @if (this.isPopulatedString(lesson.imageUrl)) {
-    <img [src]="this.getFullFileUrl(lesson.imageUrl)" />
-  } @if (this.isPopulatedString(lesson.audioUrl)) {
+  <img [src]="this.getFullFileUrl(lesson.imageUrl)" />} @if
+  (this.isPopulatedString(lesson.audioUrl)) {
   <audio controls class="w-full block">
     <source
       [src]="this.getFullFileUrl(lesson.audioUrl)"
