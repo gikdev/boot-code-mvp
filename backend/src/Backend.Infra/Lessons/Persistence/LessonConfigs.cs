@@ -24,6 +24,9 @@ internal class LessonConfigs : IEntityTypeConfiguration<Lesson> {
         builder.Property(x => x.AudioUrl)
             .HasMaxLength(PersistenceConstants.MaxLengthMedium);
 
+        builder.Property(x => x.ImageUrl)
+            .HasMaxLength(PersistenceConstants.MaxLengthMedium);
+
         builder.Property(x => x.VideoUrl)
             .HasMaxLength(PersistenceConstants.MaxLengthMedium);
 

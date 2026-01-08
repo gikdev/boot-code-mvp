@@ -14,6 +14,7 @@ internal class UpdateLessonContentByIdHandler(
 
         lesson.Update(
             audioUrl: Option.Some(req.AudioUrl),
+            imageUrl: Option.Some(req.ImageUrl),
             resources: Option.Some(req.Resources),
             textContent: Option.Some(req.TextContent),
             videoUrl: Option.Some(req.VideoUrl)

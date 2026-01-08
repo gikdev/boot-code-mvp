@@ -27,6 +27,7 @@ namespace Backend.Infra.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ImageUrl")
+                        .HasMaxLength(256)
                         .HasColumnType("TEXT");
 
                     b.Property<int>("Position")
