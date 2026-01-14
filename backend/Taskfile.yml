@@ -3,18 +3,61 @@ version: '3'
 
 dotenv: ['../.env']
 
+vars:
+  STARTUP_PATH: "./src/Backend.Api"
+  PROJECT_PATH: "./src/Backend.Infra"
+  MIGRATIONS_DIR: "Migrations"
+
 tasks:
-  default:
+  run:full:
+    aliases: [default]
+    desc: Run the project
     cmds:
       - dotnet run --project ./src/Backend.Api/
     requires:
-      vars: [PASSCODE]
+      vars: [ PASSCODE, ASPNETCORE_ENVIRONMENT, ASPNETCORE_URLS, DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_NAME ]
 
-  dev:
+  run:
+    aliases: [r]
+    desc: Run the project
     cmds:
-      - dotnet watch run --project ./src/Backend.Api/
+      - dotnet run --project ./src/Backend.Api/ --no-build --no-restore
     requires:
-      vars: [PASSCODE]
+      vars: [ PASSCODE, ASPNETCORE_ENVIRONMENT, ASPNETCORE_URLS, DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_NAME ]
 
-  build: dotnet build --no-restore
-  setup: dotnet restore ./Backend.slnx
+  build:
+    aliases: [b]
+    desc: Build the project
+    cmds:
+      - dotnet build --project ./src/Backend.Api/ --no-restore
+    requires:
+      vars: [ PASSCODE, ASPNETCORE_ENVIRONMENT, ASPNETCORE_URLS, DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_NAME ]
+
+  migrate:
+    aliases: [m]
+    desc: Generate & run EF migrations for a given project
+    cmds:
+      - task: migration:generate
+      - task: migration:apply
+
+  migration:generate:
+    aliases: [mg]
+    desc: Generate EF migrations for a given project
+    cmds:
+      - dotnet ef migrations add {{.MIGRATION_NAME}} -p {{.PROJECT_PATH}} -s {{.STARTUP_PATH}} -o {{.MIGRATIONS_DIR}}
+    requires:
+      vars: [ MIGRATION_NAME, PROJECT_PATH, STARTUP_PATH, MIGRATIONS_DIR, DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_NAME ]
+
+  migration:apply:
+    aliases: [ma]
+    desc: Run EF migrations for a given project
+    cmds:
+      - dotnet ef database update -p {{.PROJECT_PATH}} -s {{.STARTUP_PATH}}
+    requires:
+      vars: [ PROJECT_PATH, STARTUP_PATH, DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_NAME ]
+
+  restore:
+    aliases: [setup]
+    desc: Setup/Restore the whole project
+    cmds:
+      - dotnet restore ./Backend.slnx
