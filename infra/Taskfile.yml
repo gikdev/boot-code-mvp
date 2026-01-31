@@ -1,0 +1,13 @@
+# https://taskfile.dev
+version: '3'
+
+dotenv: ['../.env']
+
+tasks:
+  default: task --list-all
+  up: docker compose up -d
+  stop: docker compose stop
+  start: docker compose start
+  restart: docker compose restart
+  down: docker compose down
+  destroy: docker compose down -v
