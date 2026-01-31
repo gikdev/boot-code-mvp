@@ -1,0 +1,11 @@
+{
+  "port": "80",
+  "platform": "dotnet",
+  "app": "bootcode",
+  "build": {
+    "location": "iran"
+  },
+  "dotnet": {
+    "version": "10.0"
+  }
+}
