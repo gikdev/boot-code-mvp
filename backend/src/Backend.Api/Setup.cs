@@ -8,6 +8,11 @@ namespace Backend.Api;
 internal static class Setup {
     private const JsonNumberHandling jsonNumberHandling = JsonNumberHandling.Strict;
 
+    internal static IServiceCollection ConfigStuff(this IServiceCollection services) {
+        services.ConfigureHttpJsonOptions(o => { o.SerializerOptions.NumberHandling = JsonNumberHandling.Strict; });
+        return services;
+    }
+
     internal static IServiceCollection AddApiStuff(this IServiceCollection services) {
         services.AddCors(o => {
             o.AddPolicy("DevCorsPolicy", policy => policy
