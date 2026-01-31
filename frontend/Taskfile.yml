@@ -7,3 +7,4 @@ tasks:
   setup: pnpm i
   check: pnpm run biome check --write .
   api: pnpm run openapi-ts
+  build: pnpm run ng build --configuration production

@@ -15,13 +15,13 @@ namespace Backend.Infra.Migrations
                 name: "Lessons",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Title = table.Column<string>(type: "TEXT", maxLength: 256, nullable: false),
-                    Position = table.Column<int>(type: "INTEGER", nullable: false),
-                    TextContent = table.Column<string>(type: "TEXT", nullable: true),
-                    AudioUrl = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
-                    ImageUrl = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
-                    VideoUrl = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true)
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Title = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: false),
+                    Position = table.Column<int>(type: "integer", nullable: false),
+                    TextContent = table.Column<string>(type: "text", nullable: true),
+                    AudioUrl = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    ImageUrl = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    VideoUrl = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -32,10 +32,10 @@ namespace Backend.Infra.Migrations
                 name: "LessonResources",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Title = table.Column<string>(type: "TEXT", maxLength: 256, nullable: false),
-                    Url = table.Column<string>(type: "TEXT", maxLength: 256, nullable: false),
-                    LessonId = table.Column<Guid>(type: "TEXT", nullable: false)
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Title = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: false),
+                    Url = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: false),
+                    LessonId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
                 {

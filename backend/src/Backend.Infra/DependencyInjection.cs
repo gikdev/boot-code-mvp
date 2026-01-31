@@ -8,15 +8,15 @@ using Microsoft.Extensions.DependencyInjection;
 namespace Backend.Infra;
 
 public static class DependencyInjection {
-    public static IServiceCollection AddInfraStuff(this IServiceCollection services) {
-        services.AddDb();
+    public static IServiceCollection AddInfraStuff(this IServiceCollection services, string connStr) {
+        services.AddDb(connStr);
         services.AddRepos();
 
         return services;
     }
 
-    private static IServiceCollection AddDb(this IServiceCollection services) {
-        services.AddDbContext<MainDbCtx>(options => options.UseSqlite("Data Source = Main.db"));
+    private static IServiceCollection AddDb(this IServiceCollection services, string connStr) {
+        services.AddDbContext<MainDbCtx>(options => options.UseNpgsql(connStr));
 
         return services;
     }

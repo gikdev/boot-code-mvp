@@ -8,6 +8,11 @@ namespace Backend.Api;
 internal static class Setup {
     private const JsonNumberHandling jsonNumberHandling = JsonNumberHandling.Strict;
 
+    internal static IServiceCollection ConfigStuff(this IServiceCollection services) {
+        services.ConfigureHttpJsonOptions(o => { o.SerializerOptions.NumberHandling = JsonNumberHandling.Strict; });
+        return services;
+    }
+
     internal static IServiceCollection AddApiStuff(this IServiceCollection services) {
         services.AddCors(o => {
             o.AddPolicy("DevCorsPolicy", policy => policy
@@ -33,15 +38,16 @@ internal static class Setup {
     }
 
     internal static WebApplication UseApiStuff(this WebApplication app) {
+        app.UseStatusCodePages();
         app.UseExceptionHandler();
-        // app.UseHttpsRedirection();
 
         if (app.Environment.IsDevelopment()) app.UseCors("DevCorsPolicy");
 
-        app.MapApiEndpoints<Program>();
+        app.UseDefaultFiles();
+        app.UseStaticFiles();
+        app.MapFallbackToFile("index.html");
 
-        app.MapGet("/", () => Results.Redirect("/scalar"))
-            .ExcludeFromDescription();
+        app.MapApiEndpoints<Program>();
 
         app.MapOpenApi();
 

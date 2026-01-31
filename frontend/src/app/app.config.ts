@@ -1,6 +1,7 @@
 import { provideHttpClient, withFetch } from "@angular/common/http"
 import {
   type ApplicationConfig,
+  isDevMode,
   provideBrowserGlobalErrorListeners,
 } from "@angular/core"
 import { provideRouter } from "@angular/router"
@@ -16,6 +17,10 @@ import { provideMarkdown } from "ngx-markdown"
 import { routes } from "./app.routes"
 
 const queryClient = new QueryClient()
+
+client.setConfig({
+  baseUrl: isDevMode() ? "http://localhost:5263/" : "/",
+})
 
 export const appConfig: ApplicationConfig = {
   providers: [

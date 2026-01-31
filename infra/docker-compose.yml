@@ -1,7 +1,9 @@
+name: bootcode_infra
+
 services:
   db:
     image: postgres:16
-    container_name: imsdb
+    container_name: db
     restart: on-failure
 
     environment:

@@ -1,3 +1,7 @@
+# Static files
+wwwroot/
+!wwwroot/.gitkeep
+
 # SQLite
 *.db
 *.db-*
